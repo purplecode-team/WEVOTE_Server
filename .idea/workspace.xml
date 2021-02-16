@@ -22,6 +22,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -36,6 +37,7 @@
       <option name="presentableId" value="Default" />
       <updated>1613467074962</updated>
       <workItem from="1613467078083" duration="1652000" />
+      <workItem from="1613490119126" duration="312000" />
     </task>
     <task id="LOCAL-00001" summary="feat: package.json 생성 및 환경 설정">
       <created>1613468073392</created>
