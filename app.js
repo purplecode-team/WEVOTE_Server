@@ -8,17 +8,26 @@ const dotenv = require('dotenv');
 const {sequelize} = require('./models');
 
 dotenv.config();
+//
+// const models = require("./models/index.js");
+//
+// models.sequelize.sync().then( () => {
+//     console.log(" DB 연결 성공");
+// }).catch(err => {
+//     console.log("연결 실패");
+//     console.log(err);
+// })
 
 const app = express();
 app.set('port', process.env.PORT || 8001);
 
-sequelize.sync({force: false})
-    .then(() => {
-        console.log('데이터베이스 연결 성공');
-    })
-    .catch((err) => {
-        console.error(err);
-    });
+// sequelize.sync({force: false})
+//     .then(() => {
+//         console.log('데이터베이스 연결 성공');
+//     })
+//     .catch((err) => {
+//         console.error(err);
+//     });
 
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
