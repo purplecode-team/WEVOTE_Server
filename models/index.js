@@ -11,4 +11,16 @@ const sequelize = new Sequelize(
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
+db.Board = require('./Board')(sequelize,Sequelize)
+db.BoardComment = require('./BoardComment')(sequelize,Sequelize)
+db.Category = require('./Category')(sequelize,Sequelize)
+db.Department = require('./Department')(sequelize,Sequelize)
+db.Notice = require('./Notice')(sequelize,Sequelize)
+db.Promise = require('./Promise')(sequelize,Sequelize)
+db.promiseCategory = require('./promiseCategory')(sequelize,Sequelize)
+db.QnaComment = require('./QnaComment')(sequelize,Sequelize)
+db.Question= require('./Question')(sequelize,Sequelize)
+db.Runner = require('./Runner')(sequelize,Sequelize)
+db.User = require('./User')(sequelize,Sequelize)
+
 module.exports = db;

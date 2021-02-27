@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="aca63dfe-f385-411a-8efe-ec710ca1891c" name="Default Changelist" comment="git ignore 추가?">
+    <list default="true" id="aca63dfe-f385-411a-8efe-ec710ca1891c" name="Default Changelist" comment="Chore: sequelize-auto 관련 모듈 추가">
+      <change afterPath="$PROJECT_DIR$/models/Board.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/BoardComment.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/Category.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/Department.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/Notice.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/Promise.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/QnaComment.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/Question.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/Runner.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/User.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/init-models.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/promiseCategory.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,7 +61,8 @@
       <updated>1613467074962</updated>
       <workItem from="1613467078083" duration="1652000" />
       <workItem from="1613490119126" duration="628000" />
-      <workItem from="1614356899174" duration="5911000" />
+      <workItem from="1614356899174" duration="5996000" />
+      <workItem from="1614394221741" duration="1487000" />
     </task>
     <task id="LOCAL-00001" summary="feat: package.json 생성 및 환경 설정">
       <created>1613468073392</created>
@@ -80,7 +92,14 @@
       <option name="project" value="LOCAL" />
       <updated>1613490690585</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Chore: sequelize-auto 관련 모듈 추가">
+      <created>1614394133760</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1614394133760</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -102,6 +121,7 @@
     <MESSAGE value="feat: package.json 생성 및 환경 설정" />
     <MESSAGE value="feat: package.json 추가" />
     <MESSAGE value="git ignore 추가?" />
-    <option name="LAST_COMMIT_MESSAGE" value="git ignore 추가?" />
+    <MESSAGE value="Chore: sequelize-auto 관련 모듈 추가" />
+    <option name="LAST_COMMIT_MESSAGE" value="Chore: sequelize-auto 관련 모듈 추가" />
   </component>
 </project>
