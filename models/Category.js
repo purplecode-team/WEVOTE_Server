@@ -6,6 +6,10 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       primaryKey: true
     },
+    isCentral: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
     cate_name: {
       type: DataTypes.STRING(255),
       allowNull: false

@@ -23,4 +23,15 @@ db.Question= require('./Question')(sequelize,Sequelize)
 db.Runner = require('./Runner')(sequelize,Sequelize)
 db.User = require('./User')(sequelize,Sequelize)
 
+db.get('/', async (req, res, next) => {
+    try {
+        const users = await db.User.findAll();
+        const runner = await db.Runner.findAll();
+        // res.render('sequelize', {users});
+    } catch (err) {
+        console.error(err);
+        next(err);
+    }
+});
+
 module.exports = db;
