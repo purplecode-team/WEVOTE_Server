@@ -8,7 +8,6 @@ const dotenv = require('dotenv');
 const {sequelize} = require('./models');
 
 dotenv.config();
-const categoryRouter = require('./routes/Category')
 
 const app = express();
 app.set('port', process.env.PORT || 8001);
@@ -40,7 +39,6 @@ const indexRouter = require('./routes/index');
 const cors = require("cors");
 app.use(cors());
 app.use('/api', indexRouter);
-app.use('/category', categoryRouter);
 
 app.use((req, res, next) => {
     const error =  new Error(`${req.method} ${req.url} 라우터가 없습니다.`);
