@@ -1,19 +1,21 @@
 const Sequelize = require('sequelize');
-module.exports = class Category extends Sequelize.Model {
+module.exports = class Major extends Sequelize.Model {
   static init(sequelize) {
     return super.init({
-      categoryName: {
+      majorName: {
         type: Sequelize.STRING(255),
         allowNull: false,
         unique: true
       }
     }, {
       sequelize,
-      tableName: 'Category',
+      tableName: 'Major',
       timestamps: false,
       charset: 'utf8mb4',
       collate: 'utf8mb4_general_ci',
     });
   }
-  static associate(db) {}
+  static associate(db) {
+    db.Major.belongsTo(db.College, {foreignKey: 'collegeId', targetKey: 'id'});
+  }
 };
