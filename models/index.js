@@ -13,9 +13,9 @@ const Qna= require('./Qna');
 const QnaComment = require('./QnaComment');
 const Board = require('./Board');
 const BoardComment = require('./BoardComment');
-const Notice = require('./Notice')
-
-
+const Schedule = require('./Schedule');
+const Calendar = require('./Calendar');
+const Notice = require('./Notice');
 
 
 const db = {};
@@ -40,10 +40,9 @@ db.Qna= Qna;
 db.QnaComment = QnaComment;
 db.Board = Board;
 db.BoardComment = BoardComment;
-
-/*
+db.Schedule = Schedule;
+db.Calendar = Calendar;
 db.Notice = Notice;
- db.Banner = require('./Banner')(sequelize, Sequelize)*/
 
 
 Category.init(sequelize);
@@ -58,11 +57,10 @@ Qna.init(sequelize);
 QnaComment.init(sequelize);
 Board.init(sequelize);
 BoardComment.init(sequelize);
-
-/*
+Schedule.init(sequelize);
+Calendar.init(sequelize);
 Notice.init(sequelize);
 
- */
 
 Category.associate(db);
 Central.associate(db);
@@ -76,11 +74,8 @@ Qna.associate(db);
 QnaComment.associate(db);
 Board.associate(db);
 BoardComment.associate(db);
-
-/*
+Schedule.associate(db);
+Calendar.associate(db);
 Notice.associate(db);
-
-
- */
 
 module.exports = db;
