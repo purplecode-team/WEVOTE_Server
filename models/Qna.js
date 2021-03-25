@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize');
-module.exports = class BoardComment extends Sequelize.Model {
+module.exports = class Qna extends Sequelize.Model {
   static init(sequelize) {
     return super.init({
-      comment: {
+      question: {
         type: Sequelize.STRING(255),
         allowNull: false
       },
@@ -13,14 +13,16 @@ module.exports = class BoardComment extends Sequelize.Model {
       }
     }, {
       sequelize,
-      tableName: 'BoardComment',
+      tableName: 'Qna',
       timestamps: false,
       charset: 'utf8mb4',
       collate: 'utf8mb4_general_ci',
     });
   }
   static associate(db) {
-    db.BoardComment.belongsTo(db.User, {foreignKey: 'userId', targetKey: 'userId'});
-    db.BoardComment.belongsTo(db.Board, {foreignKey: 'boardId', targetKey: 'id'});
+    db.Qna.hasMany(db.QnaComment, {foreignKey: 'qnaId', sourceKey: 'id'});
+
+    db.Qna.belongsTo(db.Team, {foreignKey: 'teamId', targetKey: 'id'});
+    db.Qna.belongsTo(db.User, {foreignKey: 'userId', targetKey: 'userId'});
   }
 };
