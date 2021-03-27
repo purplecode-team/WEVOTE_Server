@@ -35,10 +35,10 @@ app.use(session({
     },
 }));
 
-const indexRouter = require('./routes/index');
+const mainRouter = require('./routes/main');
 const cors = require("cors");
 app.use(cors());
-app.use('/api', indexRouter);
+app.use('/api/v1/main', mainRouter);
 
 app.use((req, res, next) => {
     const error =  new Error(`${req.method} ${req.url} 라우터가 없습니다.`);

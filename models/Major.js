@@ -17,5 +17,6 @@ module.exports = class Major extends Sequelize.Model {
   }
   static associate(db) {
     db.Major.belongsTo(db.College, {foreignKey: 'collegeId', targetKey: 'id'});
+    db.Major.hasMany(db.Team, {foreignKey: 'majorId', sourceKey: 'id'});
   }
 };
