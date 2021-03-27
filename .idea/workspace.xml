@@ -2,8 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="aca63dfe-f385-411a-8efe-ec710ca1891c" name="Default Changelist" comment="Feat: db sequelize model 생성">
+      <change afterPath="$PROJECT_DIR$/controllers/index.controller.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/routes/main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/Central.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/Central.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/College.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/College.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/Major.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/Major.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/Team.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/Team.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,6 +31,14 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="ProjectId" id="1oYcgLEyzAasb2HBhHpsTn65jLn" />
   <component name="ProjectViewState">
@@ -52,7 +67,9 @@
       <workItem from="1614394221741" duration="2699000" />
       <workItem from="1614994396540" duration="737000" />
       <workItem from="1616510581108" duration="285000" />
-      <workItem from="1616510975195" duration="303000" />
+      <workItem from="1616510975195" duration="1314000" />
+      <workItem from="1616687336912" duration="4854000" />
+      <workItem from="1616806620356" duration="10367000" />
     </task>
     <task id="LOCAL-00001" summary="feat: package.json 생성 및 환경 설정">
       <created>1613468073392</created>

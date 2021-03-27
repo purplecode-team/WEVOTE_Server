@@ -1,3 +1,5 @@
+//import { index } from "../controllers/index.controller";
+
 const express = require('express');
 const router = express.Router();
 
@@ -8,5 +10,6 @@ router.get('/', function (req, res, next) {
         {id: 2, username: "RussellWestbrook"}
     ]);
 })
+
 
 module.exports = router;
