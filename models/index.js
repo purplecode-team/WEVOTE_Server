@@ -5,16 +5,18 @@ const Category = require('./Category');
 const Central = require('./Central');
 const College = require('./College');
 const Major = require('./Major');
-const Runner = require('./Runner');
 const Team = require('./Team');
-const Board = require('./Board')
-const BoardComment = require('./BoardComment')
-const Notice = require('./Notice')
-const Promises = require('./Promise')
-const promiseCategory = require('./promiseCategory')
-const QnaComment = require('./QnaComment')
-const Question= require('./Question')
-const User = require('./User')
+const Runner = require('./Runner');
+const User = require('./User');
+const Promises = require('./Promises')
+const Qna= require('./Qna');
+const QnaComment = require('./QnaComment');
+const Board = require('./Board');
+const BoardComment = require('./BoardComment');
+const Schedule = require('./Schedule');
+const Calendar = require('./Calendar');
+const Notice = require('./Notice');
+
 
 const db = {};
 
@@ -32,16 +34,15 @@ db.College = College;
 db.Major = Major;
 db.Runner = Runner;
 db.Team = Team;
-
-/* db.Board = Board;
-db.BoardComment = BoardComment;
-db.Notice = Notice;
-db.Promise = Promise;
-db.promiseCategory = promiseCategory;
-db.QnaComment = QnaComment;
-db.Question= Question;
 db.User = User;
- db.Banner = require('./Banner')(sequelize, Sequelize)*/
+db.Promises = Promises;
+db.Qna= Qna;
+db.QnaComment = QnaComment;
+db.Board = Board;
+db.BoardComment = BoardComment;
+db.Schedule = Schedule;
+db.Calendar = Calendar;
+db.Notice = Notice;
 
 
 Category.init(sequelize);
@@ -50,15 +51,16 @@ College.init(sequelize);
 Major.init(sequelize);
 Runner.init(sequelize);
 Team.init(sequelize);
-
-/* Board.init(sequelize);
-BoardComment.init(sequelize);
-Notice.init(sequelize);
-Promise.init(sequelize);
-promiseCategory.init(sequelize);
+Promises.init(sequelize);
+User.init(sequelize);
+Qna.init(sequelize);
 QnaComment.init(sequelize);
-Question.init(sequelize);
-User.init(sequelize); */
+Board.init(sequelize);
+BoardComment.init(sequelize);
+Schedule.init(sequelize);
+Calendar.init(sequelize);
+Notice.init(sequelize);
+
 
 Category.associate(db);
 Central.associate(db);
@@ -66,14 +68,14 @@ College.associate(db);
 Major.associate(db);
 Runner.associate(db);
 Team.associate(db);
-
-/* Board.associate(db);
-BoardComment.associate(db);
-Notice.associate(db);
-Promise.associate(db);
-promiseCategory.associate(db);
+Promises.associate(db);
+User.associate(db);
+Qna.associate(db);
 QnaComment.associate(db);
-Question.associate(db);
-User.associate(db); */
+Board.associate(db);
+BoardComment.associate(db);
+Schedule.associate(db);
+Calendar.associate(db);
+Notice.associate(db);
 
 module.exports = db;

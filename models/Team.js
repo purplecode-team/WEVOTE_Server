@@ -32,9 +32,10 @@ module.exports = class Team extends Sequelize.Model {
     }
     static associate(db) {
         db.Team.hasMany(db.Runner, {foreignKey: 'teamId', sourceKey: 'id'});
+        db.Team.hasMany(db.Promises, {foreignKey: 'teamId', sourceKey: 'id'});
+        db.Team.hasMany(db.Qna, {foreignKey: 'teamId', sourceKey: 'id'});
         db.Team.belongsTo(db.Major, {foreignKey: 'majorId', targetKey: 'id'});
         db.Team.belongsTo(db.College, {foreignKey: 'collegeId', targetKey: 'id'});
         db.Team.belongsTo(db.Central, {foreignKey: 'centralId', targetKey: 'id'});
-
     }
 };
