@@ -12,7 +12,7 @@ module.exports = class Banner extends Sequelize.Model {
             },
             endDAte: {
                 type: Sequelize.DATE,
-                allowNull: false,
+                allowNull: true,
             }
         }, {
             sequelize,
