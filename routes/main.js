@@ -1,12 +1,14 @@
 
 const express = require('express');
-const index = require("../controllers/main.controller");
+const main = require("../controllers/main.controller");
 const router = express.Router();
 
 
-router.get('/central-organization', index.getCentral)
-router.get('/college', index.getCollege)
-router.get('/major', index.getMajor)
-router.get('/search', index.getSearchCategory)
+router.get('/central-organization', main.getCentral)
+router.get('/college', main.getCollege)
+router.get('/department', main.getMajor)
+router.get('/search', main.getSearchCategory)
+router.get('/election', main.getElection)
+router.get('/main', main.getMain)
 
 module.exports = router;

@@ -22,6 +22,7 @@ const getMajor = async (req, res, next) => {
                 }
             ]
         })
+        //return {result2};
         return res.json(result2);
     } catch (e) {
         console.log("error!!")
@@ -76,6 +77,10 @@ const getCentral = async (req, res, next) => {
     }
 }
 
+const renameKeyOfObj = (object) => {
+
+}
+
 const renameKey = (object, key, newKey) => {
     return {'id':object['id'], [newKey] : object[key]}
 };
@@ -107,5 +112,23 @@ const getSearchCategory = async (req, res, next) => {
     }
 }
 
+const getElection = async (req, res, next) => {
+    try{
+        const central = await model.Central.findAll();
 
-module.exports = {getMajor, getCollege, getCentral, getSearchCategory}
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+const getMain = async (req, res, next) => {
+    const a = {
+        ...await getMajor(),
+        ...await getCollege()
+    }
+    console.log(a);
+    return res.json(a);
+}
+
+
+module.exports = {getMajor, getCollege, getCentral, getSearchCategory, getElection, getMain}
