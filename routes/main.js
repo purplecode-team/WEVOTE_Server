@@ -10,5 +10,6 @@ router.get('/department', main.getMajor)
 router.get('/search', main.getSearchCategory)
 router.get('/election', main.getElection)
 router.get('/main', main.getMain)
+router.get('/banner', main.getBanner)
 
 module.exports = router;

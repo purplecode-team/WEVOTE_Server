@@ -112,6 +112,19 @@ const getSearchCategory = async (req, res, next) => {
     }
 }
 
+const getBanner = async (req, res, next) =>{
+    try {
+        const banner = await model.Banner.findOne({
+            order: [['id', 'DESC']],
+            }
+        );
+
+        return res.json(banner);
+    } catch (e) {
+        console.log(e);
+    }
+}
+
 const getElection = async (req, res, next) => {
     try{
         const central = await model.Central.findAll();
@@ -131,4 +144,4 @@ const getMain = async (req, res, next) => {
 }
 
 
-module.exports = {getMajor, getCollege, getCentral, getSearchCategory, getElection, getMain}
+module.exports = {getMajor, getCollege, getCentral, getSearchCategory, getElection, getMain, getBanner}
