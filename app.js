@@ -4,12 +4,15 @@ const morgan = require('morgan');
 const path = require('path');
 const session = require('express-session');
 const dotenv = require('dotenv');
+const passport = require('./passport'); // passport 모듈 app.js와 연결
 
 const {sequelize} = require('./models');
+const passportConfig = require('/routes/passport');
 
 dotenv.config();
 
 const app = express();
+passportConfig(); // passport 설정
 app.set('port', process.env.PORT || 8001);
 
 sequelize.sync({force: false})
@@ -45,6 +48,9 @@ app.use((req, res, next) => {
     error.status = 404;
     next(error);
 });
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.listen(app.get('port'), () => {
     console.log(app.get('port'), '번 포트에서 대기중');
