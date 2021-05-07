@@ -11,21 +11,10 @@ module.exports = class User extends Sequelize.Model {
         type: Sequelize.STRING(255),
         allowNull: false
       },
-      name: {
-        type: Sequelize.STRING(255),
-        allowNull: false
-      },
-      collegeName: {
-        type: Sequelize.STRING(255),
-        allowNull: false
-      },
-      majorName: {
-        type: Sequelize.STRING(255),
-        allowNull: false
-      },
       status: {
         type: Sequelize.STRING(255),
-        allowNull: false
+        allowNull: false,
+        defaultValue: "user"
       }
     }, {
       sequelize,
