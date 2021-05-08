@@ -14,6 +14,10 @@ const getPromise = async (req, res, next) => {
                 {
                     model: model.Promises,
                     attributes: ["id", "promiseType", "promiseTitle", "promiseDetail"]
+                },
+                {
+                    model: model.Qna,
+                    attributes: ["id", "type", "comment", "time"]
                 }
             ],
             where: {teamId: id}
