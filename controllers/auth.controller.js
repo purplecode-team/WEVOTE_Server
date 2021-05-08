@@ -3,7 +3,7 @@ const passport = require('passport');
 const bcrypt = require('bcrypt');
 
 const postJoin = async (req, res, next) => {
-    const {userId, password} = req.body;
+    const {userId, password, status} = req.body;
     try {
         const exUser = await model.User.findOne({where: {userId}});
         if (exUser) {
@@ -12,16 +12,17 @@ const postJoin = async (req, res, next) => {
         const hash = await bcrypt.hash(password, 12);
         await model.User.create({
             userId,
-            password: hash
+            password: hash,
+            status
         });
-        return res.redirect('/');
+        res.send('Successfully Join...');
     } catch (e) {
         console.log("error!!");
         return next(e);
     }
 }
 
-const postLogin = async (req, res, next) => {
+const postLogin = (req, res, next) => {
     passport.authenticate('local', (authError, user, info) => {
         if (authError) {
             console.error(authError);
@@ -35,9 +36,22 @@ const postLogin = async (req, res, next) => {
                 console.error(loginError);
                 return next(loginError);
             }
-            return res.redirect('/');
-        })
+            return res.send('Successfully Login...');
+        });
     }) (req, res, next);
 }
 
-module.exports = {postJoin, postLogin}
+const getLogout = (req, res) => {
+    req.logout();
+    req.session.destroy((e) => {
+        if (e) {
+            console.log(e);
+            return res.send('session is not destroy');
+        } else {
+            console.log('session destroy success');
+            return res.send('session is destroy (login please)');
+        }
+    });
+};
+
+module.exports = {postJoin, postLogin, getLogout}
