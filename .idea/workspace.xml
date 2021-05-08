@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="aca63dfe-f385-411a-8efe-ec710ca1891c" name="Default Changelist" comment="Feat: 메인페이지 세개 중앙자치기구 선거 정보 불러오기 및 모델 수정">
+    <list default="true" id="aca63dfe-f385-411a-8efe-ec710ca1891c" name="Default Changelist" comment="modify: promise table column 변경">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/promise.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/promise.controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/promise.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/promise.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,7 +67,7 @@
       <workItem from="1617441865634" duration="14721000" />
       <workItem from="1617625539828" duration="20000" />
       <workItem from="1619848484786" duration="15188000" />
-      <workItem from="1620434429186" duration="9610000" />
+      <workItem from="1620434429186" duration="10246000" />
     </task>
     <task id="LOCAL-00001" summary="feat: package.json 생성 및 환경 설정">
       <created>1613468073392</created>
@@ -155,7 +153,14 @@
       <option name="project" value="LOCAL" />
       <updated>1620441847251</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="modify: promise table column 변경">
+      <created>1620444652086</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1620444652086</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -185,6 +190,7 @@
     <MESSAGE value="Modify: 배너 모델 null 조건 변경" />
     <MESSAGE value="Feat: 메인페이지 배너 정보 불러오기" />
     <MESSAGE value="Feat: 메인페이지 세개 중앙자치기구 선거 정보 불러오기 및 모델 수정" />
-    <option name="LAST_COMMIT_MESSAGE" value="Feat: 메인페이지 세개 중앙자치기구 선거 정보 불러오기 및 모델 수정" />
+    <MESSAGE value="modify: promise table column 변경" />
+    <option name="LAST_COMMIT_MESSAGE" value="modify: promise table column 변경" />
   </component>
 </project>
