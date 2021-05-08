@@ -4,7 +4,6 @@ const Sequelize = require('sequelize');
 const getPromise = async (req, res, next) => {
     try {
         const id = req.params.id;
-        console.log(id);
 
         const data = await model.Team.findByPk(id,{
             include: [
@@ -32,7 +31,6 @@ const getPromise = async (req, res, next) => {
 const postPromiseQna = async(req, res, next) => {
     try {
         const { comment, teamId } = req.body;
-        console.log(comment)
 
         await model.Qna.create({
             teamId: teamId,

@@ -67,7 +67,7 @@
       <workItem from="1617441865634" duration="14721000" />
       <workItem from="1617625539828" duration="20000" />
       <workItem from="1619848484786" duration="15188000" />
-      <workItem from="1620434429186" duration="15219000" />
+      <workItem from="1620434429186" duration="15891000" />
     </task>
     <task id="LOCAL-00001" summary="feat: package.json 생성 및 환경 설정">
       <created>1613468073392</created>
@@ -195,7 +195,14 @@
       <option name="project" value="LOCAL" />
       <updated>1620474236324</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Feat: 댓글 post api 구현 완성(type 및 userId 미정)">
+      <created>1620475036742</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1620475036742</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
