@@ -4,10 +4,10 @@ const morgan = require('morgan');
 const path = require('path');
 const session = require('express-session');
 const dotenv = require('dotenv');
-const passport = require('./passport'); // passport 모듈 app.js와 연결
+const passport = require('passport'); // passport 모듈 app.js와 연결
 
 const {sequelize} = require('./models');
-const passportConfig = require('/routes/passport');
+const passportConfig = require('./passport');
 
 dotenv.config();
 
@@ -15,7 +15,7 @@ const app = express();
 passportConfig(); // passport 설정
 app.set('port', process.env.PORT || 8001);
 
-sequelize.sync({force: false})
+sequelize.sync({force: true})
     .then(() => {
         console.log('데이터베이스 연결 성공');
     })
@@ -42,6 +42,8 @@ const mainRouter = require('./routes/main');
 const authRouter = require('./routes/auth');
 const cors = require("cors");
 app.use(cors());
+app.use(passport.initialize());
+app.use(passport.session());
 app.use('/api/v1/main', mainRouter);
 app.use('/api/v1/auth', authRouter);
 
@@ -52,8 +54,6 @@ app.use((req, res, next) => {
     next(error);
 });
 
-app.use(passport.initialize());
-app.use(passport.session());
 
 app.listen(app.get('port'), () => {
     console.log(app.get('port'), '번 포트에서 대기중');
