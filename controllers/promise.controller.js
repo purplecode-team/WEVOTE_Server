@@ -23,30 +23,10 @@ const getPromise = async (req, res, next) => {
             where: {teamId: id}
         })
 
-        /*const result2 = await model.College.findAll({
-            include: [
-                {
-                    model: model.Major,
-                    attributes: ['id', 'majorName'],
-                    include: [
-                        {
-                            model: model.Team,
-                            attributes: ['id', 'order', 'slogan'],
-                            include: [
-                                {
-                                    model: model.Runner,
-                                    attributes: ['id', 'name', 'major', 'studentNum', 'position', 'picture', 'teamId']
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ]
-        })*/
         return res.json(data);
     } catch (e) {
         console.log("error!!")
     }
 }
 
-module.exports={getPromise};
+module.exports={ getPromise };
