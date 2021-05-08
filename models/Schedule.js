@@ -30,5 +30,14 @@ module.exports = class Schedule extends Sequelize.Model {
             collate: 'utf8mb4_general_ci',
         });
     }
-    static associate(db) {}
+    static associate(db) {
+        // db.Schedule.hasMany(db.Runner, {foreignKey: 'teamId', sourceKey: 'id'});
+        // db.Schedule.hasMany(db.Promises, {foreignKey: 'teamId', sourceKey: 'id'});
+        // db.Schedule.hasMany(db.Qna, {foreignKey: 'teamId', sourceKey: 'id'});
+        //db.Schedule.belongsTo(db.Team, {foreignKey: 'teamId', targetKey: 'id'});
+        db.Schedule.belongsTo(db.Major, {foreignKey: 'majorId', targetKey: 'id'});
+        db.Schedule.belongsTo(db.College, {foreignKey: 'collegeId', targetKey: 'id'});
+        db.Schedule.belongsTo(db.Central, {foreignKey: 'centralId', targetKey: 'id'});
+
+    }
 };

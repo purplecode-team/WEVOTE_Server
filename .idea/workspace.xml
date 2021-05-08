@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="aca63dfe-f385-411a-8efe-ec710ca1891c" name="Default Changelist" comment="Feat: db sequelize model 생성">
+    <list default="true" id="aca63dfe-f385-411a-8efe-ec710ca1891c" name="Default Changelist" comment="Feat: 메인페이지 배너 정보 불러오기">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/main.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/main.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/Central.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/Central.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/College.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/College.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/Major.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/Major.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/Schedule.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/Schedule.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/Team.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/Team.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +68,11 @@
       <workItem from="1616510975195" duration="1314000" />
       <workItem from="1616687336912" duration="4854000" />
       <workItem from="1616806620356" duration="10367000" />
-      <workItem from="1616928411414" duration="732000" />
+      <workItem from="1616928411414" duration="1538000" />
+      <workItem from="1617441865634" duration="14721000" />
+      <workItem from="1617625539828" duration="20000" />
+      <workItem from="1619848484786" duration="15188000" />
+      <workItem from="1620434429186" duration="7008000" />
     </task>
     <task id="LOCAL-00001" summary="feat: package.json 생성 및 환경 설정">
       <created>1613468073392</created>
@@ -108,7 +116,42 @@
       <option name="project" value="LOCAL" />
       <updated>1614398182871</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Feat: 메인페이지 상단 검색창 구현">
+      <created>1617450748659</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1617450748659</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Modify: 메인페이지 department endpoint 수정">
+      <created>1619855707836</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1619855707836</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Feat: banner 모델 추가">
+      <created>1619856219060</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1619856219060</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Modify: 배너 모델 null 조건 변경">
+      <created>1619856302653</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1619856302653</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Feat: 메인페이지 배너 정보 불러오기">
+      <created>1619857049092</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1619857049092</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -132,6 +175,11 @@
     <MESSAGE value="git ignore 추가?" />
     <MESSAGE value="Chore: sequelize-auto 관련 모듈 추가" />
     <MESSAGE value="Feat: db sequelize model 생성" />
-    <option name="LAST_COMMIT_MESSAGE" value="Feat: db sequelize model 생성" />
+    <MESSAGE value="Feat: 메인페이지 상단 검색창 구현" />
+    <MESSAGE value="Modify: 메인페이지 department endpoint 수정" />
+    <MESSAGE value="Feat: banner 모델 추가" />
+    <MESSAGE value="Modify: 배너 모델 null 조건 변경" />
+    <MESSAGE value="Feat: 메인페이지 배너 정보 불러오기" />
+    <option name="LAST_COMMIT_MESSAGE" value="Feat: 메인페이지 배너 정보 불러오기" />
   </component>
 </project>
