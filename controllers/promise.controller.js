@@ -31,19 +31,20 @@ const getPromise = async (req, res, next) => {
 
 const postPromiseQna = async(req, res, next) => {
     try {
-        const { comment } = req.body;
+        const { comment, teamId } = req.body;
         console.log(comment)
 
         await model.Qna.create({
-
+            teamId: teamId,
             comment: comment,
-
+            type: "answer",
         })
 
-        return res.status(200).json({success: true, error: 'error'});
+        return res.status(200).json({success: true, message: '댓글 저장에 성공했습니다.'});
 
     } catch (e) {
         console.log(e)
+        return res.status(500).json({success: false, message: e})
     }
 }
 
