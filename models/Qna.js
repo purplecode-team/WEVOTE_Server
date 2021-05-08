@@ -2,7 +2,11 @@ const Sequelize = require('sequelize');
 module.exports = class Qna extends Sequelize.Model {
   static init(sequelize) {
     return super.init({
-      question: {
+      type: {
+        type: Sequelize.STRING(20),
+        allowNull: false
+      },
+      comment: {
         type: Sequelize.STRING(255),
         allowNull: false
       },
