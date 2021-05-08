@@ -17,5 +17,7 @@ module.exports = class Central extends Sequelize.Model {
     }
     static associate(db) {
         db.Central.hasMany(db.Team, {foreignKey: 'centralId', sourceKey: 'id'});
+        db.Central.hasMany(db.Schedule, {foreignKey: 'centralId', sourceKey: 'id'});
+
     }
 };

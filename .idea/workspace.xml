@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="aca63dfe-f385-411a-8efe-ec710ca1891c" name="Default Changelist" comment="Modify: 배너 모델 null 조건 변경">
+    <list default="true" id="aca63dfe-f385-411a-8efe-ec710ca1891c" name="Default Changelist" comment="Feat: 메인페이지 배너 정보 불러오기">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/main.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/main.controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/Banner.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/Banner.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/Central.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/Central.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/College.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/College.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/Major.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/Major.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/Schedule.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/Schedule.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/Team.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/Team.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,7 +71,8 @@
       <workItem from="1616928411414" duration="1538000" />
       <workItem from="1617441865634" duration="14721000" />
       <workItem from="1617625539828" duration="20000" />
-      <workItem from="1619848484786" duration="5194000" />
+      <workItem from="1619848484786" duration="15188000" />
+      <workItem from="1620434429186" duration="7008000" />
     </task>
     <task id="LOCAL-00001" summary="feat: package.json 생성 및 환경 설정">
       <created>1613468073392</created>
@@ -141,7 +144,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619856302653</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Feat: 메인페이지 배너 정보 불러오기">
+      <created>1619857049092</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1619857049092</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -169,6 +179,7 @@
     <MESSAGE value="Modify: 메인페이지 department endpoint 수정" />
     <MESSAGE value="Feat: banner 모델 추가" />
     <MESSAGE value="Modify: 배너 모델 null 조건 변경" />
-    <option name="LAST_COMMIT_MESSAGE" value="Modify: 배너 모델 null 조건 변경" />
+    <MESSAGE value="Feat: 메인페이지 배너 정보 불러오기" />
+    <option name="LAST_COMMIT_MESSAGE" value="Feat: 메인페이지 배너 정보 불러오기" />
   </component>
 </project>
