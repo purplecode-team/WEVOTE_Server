@@ -36,9 +36,11 @@ app.use(session({
 }));
 
 const mainRouter = require('./routes/main');
+const promiseRouter = require('./routes/promise');
 const cors = require("cors");
 app.use(cors());
 app.use('/api/v1/main', mainRouter);
+app.use('/api/v1/promise', promiseRouter);
 
 app.use((req, res, next) => {
     const error =  new Error(`${req.method} ${req.url} 라우터가 없습니다.`);

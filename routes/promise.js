@@ -3,7 +3,7 @@ const promise = require("../controllers/promise.controller");
 const router = express.Router();
 
 
-router.get('/promise-detail', promise.getCentral)
+router.get('/promise-detail/:id', promise.getPromise)
 
 
 module.exports = router;

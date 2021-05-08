@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="aca63dfe-f385-411a-8efe-ec710ca1891c" name="Default Changelist" comment="Feat: 메인페이지 세개 중앙자치기구 선거 정보 불러오기 및 모델 수정">
-      <change afterPath="$PROJECT_DIR$/controllers/promise.controller.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/routes/promise.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/promise.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/promise.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/promise.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/promise.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,7 +69,7 @@
       <workItem from="1617441865634" duration="14721000" />
       <workItem from="1617625539828" duration="20000" />
       <workItem from="1619848484786" duration="15188000" />
-      <workItem from="1620434429186" duration="7349000" />
+      <workItem from="1620434429186" duration="9610000" />
     </task>
     <task id="LOCAL-00001" summary="feat: package.json 생성 및 환경 설정">
       <created>1613468073392</created>
