@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="aca63dfe-f385-411a-8efe-ec710ca1891c" name="Default Changelist" comment="modify: qna table 수정">
+    <list default="true" id="aca63dfe-f385-411a-8efe-ec710ca1891c" name="Default Changelist" comment="Modify: 주석 삭제">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/promise.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/promise.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/promise.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/promise.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,7 +68,7 @@
       <workItem from="1617441865634" duration="14721000" />
       <workItem from="1617625539828" duration="20000" />
       <workItem from="1619848484786" duration="15188000" />
-      <workItem from="1620434429186" duration="11601000" />
+      <workItem from="1620434429186" duration="14231000" />
     </task>
     <task id="LOCAL-00001" summary="feat: package.json 생성 및 환경 설정">
       <created>1613468073392</created>
@@ -174,7 +175,21 @@
       <option name="project" value="LOCAL" />
       <updated>1620445682793</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Feat: 후보공약페이지 정보 불러오는 api 완성">
+      <created>1620469686164</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1620469686164</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Modify: 주석 삭제">
+      <created>1620469739117</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1620469739117</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -207,6 +222,8 @@
     <MESSAGE value="modify: promise table column 변경" />
     <MESSAGE value="feat: 공약까지 나오게 promise.controller.js 완성" />
     <MESSAGE value="modify: qna table 수정" />
-    <option name="LAST_COMMIT_MESSAGE" value="modify: qna table 수정" />
+    <MESSAGE value="Feat: 후보공약페이지 정보 불러오는 api 완성" />
+    <MESSAGE value="Modify: 주석 삭제" />
+    <option name="LAST_COMMIT_MESSAGE" value="Modify: 주석 삭제" />
   </component>
 </project>

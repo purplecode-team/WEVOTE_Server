@@ -29,4 +29,22 @@ const getPromise = async (req, res, next) => {
     }
 }
 
-module.exports={ getPromise };
+const postPromiseQna = async(req, res, next) => {
+    try {
+        const { comment } = req.body;
+        console.log(comment)
+
+        await model.Qna.create({
+
+            comment: comment,
+
+        })
+
+        return res.status(200).json({success: true, error: 'error'});
+
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+module.exports={ getPromise, postPromiseQna };
