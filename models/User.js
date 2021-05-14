@@ -11,6 +11,11 @@ module.exports = class User extends Sequelize.Model {
         type: Sequelize.STRING(255),
         allowNull: false
       },
+      provider: {
+        type: Sequelize.STRING(10),
+        allowNull: false,
+        defaultValue: 'local'
+      },
       status: {
         type: Sequelize.STRING(255),
         allowNull: false,
