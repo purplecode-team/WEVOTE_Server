@@ -9,12 +9,16 @@ module.exports = class User extends Sequelize.Model {
       },
       password: {
         type: Sequelize.STRING(255),
-        allowNull: false
+        allowNull: true
       },
       provider: {
         type: Sequelize.STRING(10),
         allowNull: false,
         defaultValue: 'local'
+      },
+      snsId: {
+        type: Sequelize.STRING(30),
+        allowNull: true,
       },
       status: {
         type: Sequelize.STRING(255),

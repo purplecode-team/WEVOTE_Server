@@ -1,23 +1,24 @@
 const passport = require('passport')
-const KakaoStrategy = require('passport-kakao').Strategy;
+const googleStrategy = require('passport-google-oauth20').Strategy;
 
 const User = require('../models/User');
 
 module.exports = () => {
-    passport.use(new KakaoStrategy ({
-        clientID: process.env['KAKAO_ID'],
-        callbackURL: '/auth/kakao/callback',
+    passport.use(new googleStrategy ({
+        clientID: process.env['GOOGLE_ID '],
+        clientSecret: process.env['GOOGLE_SECRET '],
+        callbackURL: '/auth/google/callback',
     }, async (accessToken, refreshToken, profile, done) => {
-        console.log('kakao profile', profile);
+        console.log('google profile', profile);
         try {
             const exUser = await User.findOne({
-                where: {snsId: profile.id, provider: 'kakao'},
+                where: {snsId: profile.id, provider: 'google'},
             });
             if (exUser) {
                 done(null, exUser);
             } else {
                 const newUser = await User.create({
-                    userId: profile._json && profile._json.kaccount_email,
+                    userId: profile._json.email,
                     snsId: profile.id,
                     provider: 'kakao'
                 });
