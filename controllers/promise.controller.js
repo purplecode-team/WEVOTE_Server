@@ -3,9 +3,10 @@ const Sequelize = require('sequelize');
 
 const getPromise = async (req, res, next) => {
     try {
+        //id => centralId, collegeId, majorId 셋중에 하나
         const id = req.params.id;
 
-        const data = await model.Team.findByPk(id,{
+        let data = await model.Team.findAll({
             include: [
                 {
                     model: model.Runner
@@ -18,11 +19,56 @@ const getPromise = async (req, res, next) => {
                     model: model.Qna,
                     attributes: ["id", "type", "comment", "time"]
                 }
-            ],
-            where: {teamId: id}
-        })
+            ],where: {majorId: id}})
 
-        return res.json(data);
+        if (!Object.keys(data).length) {
+            data = await model.Team.findAll({
+                include: [
+                    {
+                        model: model.Runner
+                    },
+                    {
+                        model: model.Promises,
+                        attributes: ["id", "promiseType", "promiseTitle", "promiseDetail"]
+                    },
+                    {
+                        model: model.Qna,
+                        attributes: ["id", "type", "comment", "time"]
+                    }
+                ],where: {collegeId: id}})
+        }
+
+        if (!Object.keys(data).length) {
+            data = await model.Team.findAll({
+                include: [
+                    {
+                        model: model.Runner
+                    },
+                    {
+                        model: model.Promises,
+                        attributes: ["id", "promiseType", "promiseTitle", "promiseDetail"]
+                    },
+                    {
+                        model: model.Qna,
+                        attributes: ["id", "type", "comment", "time"]
+                    }
+                ], where: {centralId: id}})
+        }
+
+        let name = data[0]['dataValues']['majorName'];
+
+        if(!name) {
+            name = data[0]['dataValues']['categoryDetail']
+        }
+
+        console.log(name);
+
+        const finalData = {"id": id, "name": name, "Teams": data}
+
+
+        // console.log(data)
+
+        return res.json(finalData);
     } catch (e) {
         console.log("error!!")
     }
