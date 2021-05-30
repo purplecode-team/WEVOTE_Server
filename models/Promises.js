@@ -10,9 +10,13 @@ module.exports = class Promises extends Sequelize.Model {
         type: Sequelize.INTEGER.UNSIGNED,
         allowNull: false
       },
-      promiseDetail: {
+      promiseTitle: {
         type: Sequelize.STRING(255),
         allowNull: false
+      },
+      promiseDetail: {
+        type: Sequelize.STRING(255),
+        allowNull: true
       }
     }, {
       sequelize,
