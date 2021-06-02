@@ -4,13 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aca63dfe-f385-411a-8efe-ec710ca1891c" name="Default Changelist" comment="Modify: 후보보정보 수정, 메인페이지 배너 수정">
+    <list default="true" id="aca63dfe-f385-411a-8efe-ec710ca1891c" name="Default Changelist" comment="modify- 포트번호 8080으로 수정 및 npm start 원래대로 변경">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/admin.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/admin.controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/admin.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -218,7 +213,14 @@
       <option name="project" value="LOCAL" />
       <updated>1620475791644</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="modify- 포트번호 8080으로 수정 및 npm start 원래대로 변경">
+      <created>1622641495987</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1622641495987</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -257,6 +259,7 @@
     <MESSAGE value="Feat: 댓글 post api 구현 완성(type 및 userId 미정)" />
     <MESSAGE value="Modify: console.log 삭제" />
     <MESSAGE value="Modify: 후보보정보 수정, 메인페이지 배너 수정" />
-    <option name="LAST_COMMIT_MESSAGE" value="Modify: 후보보정보 수정, 메인페이지 배너 수정" />
+    <MESSAGE value="modify- 포트번호 8080으로 수정 및 npm start 원래대로 변경" />
+    <option name="LAST_COMMIT_MESSAGE" value="modify- 포트번호 8080으로 수정 및 npm start 원래대로 변경" />
   </component>
 </project>
