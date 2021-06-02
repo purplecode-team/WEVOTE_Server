@@ -12,8 +12,9 @@ const {sequelize} = require('./models');
 const cors = require("cors");
 
 dotenv.config();
-const mainRouter = require('./routes/main');
-const logger = require('/logger');
+
+//const logger = require("/logger");
+
 
 const app = express();
 app.set('port', process.env.PORT || 8001);
@@ -42,11 +43,11 @@ app.use(cookieParser(process.env.COOKIE_SECRET));
 const sessionOption = {
     resave: false,
     saveUninitialized: false,
-    secret: process.env.COOKIE_SECRET,
+    secrete: process.env.COOKIE_SECRET,
     cookie: {
         httpOnly: true,
         secure: false,
-    },
+    }
 };
 
 if (process.env.NODE_ENV === 'production') {
@@ -54,11 +55,12 @@ if (process.env.NODE_ENV === 'production') {
     // sessionOption.cookie.secure = true;
 }
 
+
 app.use(session(sessionOption))
 const mainRouter = require('./routes/main');
 const promiseRouter = require('./routes/promise');
 const adminRouter = require('./routes/admin');
-const cors = require("cors");
+//const cors = require("cors");
 app.use(cors());
 
 app.use('/api/v1/main', mainRouter);
