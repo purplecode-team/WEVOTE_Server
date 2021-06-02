@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aca63dfe-f385-411a-8efe-ec710ca1891c" name="Default Changelist" comment="modify- 포트번호 8080으로 수정 및 npm start 원래대로 변경">
+    <list default="true" id="aca63dfe-f385-411a-8efe-ec710ca1891c" name="Default Changelist" comment="modify - app.js 수정">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -220,7 +223,14 @@
       <option name="project" value="LOCAL" />
       <updated>1622641495987</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="modify - app.js 수정">
+      <created>1622642822951</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1622642822951</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -260,6 +270,7 @@
     <MESSAGE value="Modify: console.log 삭제" />
     <MESSAGE value="Modify: 후보보정보 수정, 메인페이지 배너 수정" />
     <MESSAGE value="modify- 포트번호 8080으로 수정 및 npm start 원래대로 변경" />
-    <option name="LAST_COMMIT_MESSAGE" value="modify- 포트번호 8080으로 수정 및 npm start 원래대로 변경" />
+    <MESSAGE value="modify - app.js 수정" />
+    <option name="LAST_COMMIT_MESSAGE" value="modify - app.js 수정" />
   </component>
 </project>
