@@ -152,8 +152,15 @@ const getElection = async (req, res, next) => {
 
         const { QueryTypes } = require('sequelize');
 
+        //시작~끝날짜 있는 것
+        // const query =
+        //     "select Team.centralId, Team.categoryDetail, count(Team.centralId) as count, Schedule.startDate, Schedule.endDate from Team INNER JOIN Schedule WHERE Team.centralId = Schedule.centralId GROUP BY Team.centralId, Team.categoryDetail, Schedule.startDate, Schedule.endDate;"
+
+
+        //시작~끝날짜 없는 것
         const query =
-            "select Team.centralId, Team.categoryDetail, count(Team.centralId) as count, Schedule.startDate, Schedule.endDate from Team INNER JOIN Schedule WHERE Team.centralId = Schedule.centralId GROUP BY Team.centralId, Team.categoryDetail, Schedule.startDate, Schedule.endDate;"
+            "select Team.centralId, Team.categoryDetail, count(Team.centralId) as count from Team INNER JOIN Schedule WHERE Team.centralId = Schedule.centralId GROUP BY Team.centralId, Team.categoryDetail, Schedule.startDate, Schedule.endDate;"
+
 
         const results = await model.sequelize.query(query, { type: QueryTypes.SELECT });
 

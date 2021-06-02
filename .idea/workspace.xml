@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="aca63dfe-f385-411a-8efe-ec710ca1891c" name="Default Changelist" comment="Feat: 메인페이지 배너 정보 불러오기">
+    <list default="true" id="aca63dfe-f385-411a-8efe-ec710ca1891c" name="Default Changelist" comment="Modify: 후보보정보 수정, 메인페이지 배너 수정">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/main.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/main.controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/Central.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/Central.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/College.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/College.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/Major.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/Major.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/Schedule.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/Schedule.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/Team.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/Team.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/promise.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/promise.controller.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,7 +68,8 @@
       <workItem from="1617441865634" duration="14721000" />
       <workItem from="1617625539828" duration="20000" />
       <workItem from="1619848484786" duration="15188000" />
-      <workItem from="1620434429186" duration="7008000" />
+      <workItem from="1620434429186" duration="18414000" />
+      <workItem from="1622278268877" duration="5747000" />
     </task>
     <task id="LOCAL-00001" summary="feat: package.json 생성 및 환경 설정">
       <created>1613468073392</created>
@@ -151,7 +148,70 @@
       <option name="project" value="LOCAL" />
       <updated>1619857049092</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Feat: 메인페이지 세개 중앙자치기구 선거 정보 불러오기 및 모델 수정">
+      <created>1620441847251</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1620441847251</updated>
+    </task>
+    <task id="LOCAL-00013" summary="modify: promise table column 변경">
+      <created>1620444652086</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1620444652086</updated>
+    </task>
+    <task id="LOCAL-00014" summary="feat: 공약까지 나오게 promise.controller.js 완성">
+      <created>1620445201941</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1620445201941</updated>
+    </task>
+    <task id="LOCAL-00015" summary="modify: qna table 수정">
+      <created>1620445682793</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1620445682793</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Feat: 후보공약페이지 정보 불러오는 api 완성">
+      <created>1620469686164</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1620469686164</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Modify: 주석 삭제">
+      <created>1620469739117</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1620469739117</updated>
+    </task>
+    <task id="LOCAL-00018" summary="feat: comment request body로 받아서 return할 수 있게">
+      <created>1620474236324</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1620474236324</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Feat: 댓글 post api 구현 완성(type 및 userId 미정)">
+      <created>1620475036742</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1620475036742</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Modify: console.log 삭제">
+      <created>1620475791643</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1620475791644</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -180,6 +240,16 @@
     <MESSAGE value="Feat: banner 모델 추가" />
     <MESSAGE value="Modify: 배너 모델 null 조건 변경" />
     <MESSAGE value="Feat: 메인페이지 배너 정보 불러오기" />
-    <option name="LAST_COMMIT_MESSAGE" value="Feat: 메인페이지 배너 정보 불러오기" />
+    <MESSAGE value="Feat: 메인페이지 세개 중앙자치기구 선거 정보 불러오기 및 모델 수정" />
+    <MESSAGE value="modify: promise table column 변경" />
+    <MESSAGE value="feat: 공약까지 나오게 promise.controller.js 완성" />
+    <MESSAGE value="modify: qna table 수정" />
+    <MESSAGE value="Feat: 후보공약페이지 정보 불러오는 api 완성" />
+    <MESSAGE value="Modify: 주석 삭제" />
+    <MESSAGE value="feat: comment request body로 받아서 return할 수 있게" />
+    <MESSAGE value="Feat: 댓글 post api 구현 완성(type 및 userId 미정)" />
+    <MESSAGE value="Modify: console.log 삭제" />
+    <MESSAGE value="Modify: 후보보정보 수정, 메인페이지 배너 수정" />
+    <option name="LAST_COMMIT_MESSAGE" value="Modify: 후보보정보 수정, 메인페이지 배너 수정" />
   </component>
 </project>

@@ -42,11 +42,11 @@ app.use(cookieParser(process.env.COOKIE_SECRET));
 const sessionOption = {
     resave: false,
     saveUninitialized: false,
-    secrete: process.env.COOKIE_SECRET,
+    secret: process.env.COOKIE_SECRET,
     cookie: {
         httpOnly: true,
-        secrue: false,
-    }
+        secure: false,
+    },
 };
 
 if (process.env.NODE_ENV === 'production') {
@@ -55,14 +55,24 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 app.use(session(sessionOption))
+const mainRouter = require('./routes/main');
+const promiseRouter = require('./routes/promise');
+const adminRouter = require('./routes/admin');
+const cors = require("cors");
 app.use(cors());
 
 app.use('/api/v1/main', mainRouter);
+app.use('/api/v1/promise', promiseRouter);
 
+app.use('/api/v1/admin', adminRouter);
 app.use((req, res, next) => {
     const error =  new Error(`${req.method} ${req.url} 라우터가 없습니다.`);
     error.status = 404;
     logger.info('hello');
     logger.error(error.message);
     next(error);
+});
+
+app.listen(app.get('port'), () => {
+    console.log(app.get('port'), '번 포트에서 대기중');
 });
