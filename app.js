@@ -111,11 +111,11 @@ const promiseRouter = require('./routes/promise');
 const adminRouter = require('./routes/admin');
 
 const { sequelize } = require('./models');
-const passportConfig = require('./passport');
+// const passportConfig = require('./passport');
 const logger = require('./logger');
 
 const app = express();
-passportConfig(); // 패스포트 설정
+// passportConfig(); // 패스포트 설정
 app.set('port', process.env.PORT || 8080);
 app.set('view engine', 'html');
 nunjucks.configure('views', {
