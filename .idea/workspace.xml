@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aca63dfe-f385-411a-8efe-ec710ca1891c" name="Default Changelist" comment="modify - package.json npm start 수정">
+    <list default="true" id="aca63dfe-f385-411a-8efe-ec710ca1891c" name="Default Changelist" comment="modify - package.json 수정">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -72,6 +72,7 @@
       <workItem from="1620434429186" duration="18414000" />
       <workItem from="1622278268877" duration="5747000" />
       <workItem from="1622636944517" duration="3088000" />
+      <workItem from="1622804223987" duration="1388000" />
     </task>
     <task id="LOCAL-00001" summary="feat: package.json 생성 및 환경 설정">
       <created>1613468073392</created>
@@ -248,7 +249,28 @@
       <option name="project" value="LOCAL" />
       <updated>1622643829875</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="modify - package.json npm start 수정">
+      <created>1622804284383</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1622804284383</updated>
+    </task>
+    <task id="LOCAL-00027" summary="modify - package.json npm start 수정">
+      <created>1622804615317</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1622804615317</updated>
+    </task>
+    <task id="LOCAL-00028" summary="modify - package.json 수정">
+      <created>1622810504470</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1622810504470</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -290,6 +312,7 @@
     <MESSAGE value="modify- 포트번호 8080으로 수정 및 npm start 원래대로 변경" />
     <MESSAGE value="modify - app.js 수정" />
     <MESSAGE value="modify - package.json npm start 수정" />
-    <option name="LAST_COMMIT_MESSAGE" value="modify - package.json npm start 수정" />
+    <MESSAGE value="modify - package.json 수정" />
+    <option name="LAST_COMMIT_MESSAGE" value="modify - package.json 수정" />
   </component>
 </project>
