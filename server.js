@@ -1,4 +1,5 @@
 //const app = require('./app');
+
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
@@ -44,7 +45,7 @@ app.use(cookieParser(process.env.COOKIE_SECRET));
 const sessionOption = {
     resave: false,
     saveUninitialized: false,
-    secrete: process.env.COOKIE_SECRET,
+    secret: process.env.COOKIE_SECRET,
     cookie: {
         httpOnly: true,
         secure: false,
@@ -71,8 +72,8 @@ app.use('/api/v1/admin', adminRouter);
 app.use((req, res, next) => {
     const error =  new Error(`${req.method} ${req.url} 라우터가 없습니다.`);
     error.status = 404;
-    logger.info('hello');
-    logger.error(error.message);
+    // logger.info('hello');
+    // logger.error(error.message);
     next(error);
 });
 
@@ -81,7 +82,7 @@ app.listen(app.get('port'), () => {
     console.log(app.get('port'), '번 포트에서 대기중');
 });
 
-//const exec = require('child_process').exec;
+const exec = require('child_process').exec;
 // const path = require('path');
 const client = exec('npm run start', {
     windowsHide: true,
