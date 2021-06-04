@@ -96,7 +96,7 @@ const path = require('path');
 const session = require('express-session');
 const nunjucks = require('nunjucks');
 const dotenv = require('dotenv');
-const passport = require('passport');
+// const passport = require('passport');
 const helmet = require('helmet');
 const hpp = require('hpp');
 
@@ -157,8 +157,8 @@ if (process.env.NODE_ENV === 'production') {
     // sessionOption.cookie.secure = true;
 }
 app.use(session(sessionOption));
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 app.use('/api/v1/main', mainRouter);
 app.use('/api/v1/promise', promiseRouter);
