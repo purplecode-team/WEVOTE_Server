@@ -75,6 +75,8 @@ app.use((req, res, next) => {
     next(error);
 });
 
-app.listen(app.get('port'), () => {
-    console.log(app.get('port'), '번 포트에서 대기중');
-});
+export default app;
+
+// app.listen(app.get('port'), () => {
+//     console.log(app.get('port'), '번 포트에서 대기중');
+// });
