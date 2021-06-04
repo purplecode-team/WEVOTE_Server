@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aca63dfe-f385-411a-8efe-ec710ca1891c" name="Default Changelist" comment="modify - 배포  수정" />
+    <list default="true" id="aca63dfe-f385-411a-8efe-ec710ca1891c" name="Default Changelist" comment="modify - 배포  수정">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -70,7 +72,7 @@
       <workItem from="1620434429186" duration="18414000" />
       <workItem from="1622278268877" duration="5747000" />
       <workItem from="1622636944517" duration="3088000" />
-      <workItem from="1622804223987" duration="1690000" />
+      <workItem from="1622804223987" duration="2393000" />
     </task>
     <task id="LOCAL-00001" summary="feat: package.json 생성 및 환경 설정">
       <created>1613468073392</created>
@@ -282,7 +284,14 @@
       <option name="project" value="LOCAL" />
       <updated>1622811121437</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="modify - 배포  수정">
+      <created>1622811237459</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1622811237459</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
