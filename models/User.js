@@ -3,29 +3,27 @@ module.exports = class User extends Sequelize.Model {
   static init(sequelize) {
     return super.init({
       userId: {
-        type: Sequelize.STRING(255),
+        type: Sequelize.STRING(500),
         allowNull: false,
         primaryKey: true
       },
       password: {
         type: Sequelize.STRING(255),
-        allowNull: false
+        allowNull: true
       },
-      name: {
-        type: Sequelize.STRING(255),
-        allowNull: false
+      provider: {
+        type: Sequelize.STRING(10),
+        allowNull: false,
+        defaultValue: 'local'
       },
-      collegeName: {
-        type: Sequelize.STRING(255),
-        allowNull: false
-      },
-      majorName: {
-        type: Sequelize.STRING(255),
-        allowNull: false
+      snsId: {
+        type: Sequelize.STRING(30),
+        allowNull: true,
       },
       status: {
         type: Sequelize.STRING(255),
-        allowNull: false
+        allowNull: false,
+        defaultValue: "user"
       }
     }, {
       sequelize,
