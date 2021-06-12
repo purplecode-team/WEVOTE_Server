@@ -1,3 +1,6 @@
+const multer = require('multer');
+const fs = require('fs');
+const path = require('path');
 const model = require("../models");
 
 const registerCategory = async (req, res, next) => {
@@ -90,7 +93,39 @@ const deleteBanner = async(req, res, next) => {
     }
 }
 
+const registerCalendar = async(req, res) => {
+    try {
+        await checkFolder();
+        uploadCalendar.single('img')(req, res, () => {
+            console.log(req.file);
+            res.json({url:`/register-calendar/${req.file.filename}`});
+            }
+        )
+    } catch(e) {
+        console.error('업로드 오류')
+    }
+}
 
+const checkFolder = async() => {
+    try {
+        fs.readdirSync('uploadCalendar');
+    } catch(e) {
+        console.error('uploadCalendar 폴더가 없어 새로 생성')
+        fs.mkdirSync('uploadCalendar');
+    }
+}
 
+const uploadCalendar = multer({
+    storage: multer.diskStorage({
+        destination(req, file, cb) {
+            cb(null, 'uploadCalendar/')
+        },
+        filename(req, file, cb) {
+            const ext = path.extname(file.originalname);
+            cb(null, path.basename(file.originalname, ext) + Date.now() + ext);
+        },
+    }),
+    limits: {fileSize: 5*1024*1024}
+});
 
-module.exports = {registerCategory, registerBanner}
+module.exports = {registerCategory, registerBanner, registerCalendar}
