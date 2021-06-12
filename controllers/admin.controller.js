@@ -106,12 +106,34 @@ const registerCalendar = async(req, res) => {
     }
 }
 
+const registerInfo = async(req, res) => {
+    try {
+        await checkInfoFolder();
+        uploadInfo.single('img')(req, res, () => {
+            console.log(req.file);
+            res.json({url:`/register-info/${req.file.filename}`});
+            }
+        )
+    } catch(e) {
+        console.error('업로드 오류')
+    }
+}
+
 const checkFolder = async() => {
     try {
         fs.readdirSync('uploadCalendar');
     } catch(e) {
         console.error('uploadCalendar 폴더가 없어 새로 생성')
         fs.mkdirSync('uploadCalendar');
+    }
+}
+
+const checkInfoFolder = async() => {
+    try {
+        fs.readdirSync('uploadInfo');
+    } catch(e) {
+        console.error('uploadInfo 폴더가 없어 새로 생성')
+        fs.mkdirSync('uploadInfo');
     }
 }
 
@@ -128,4 +150,17 @@ const uploadCalendar = multer({
     limits: {fileSize: 5*1024*1024}
 });
 
-module.exports = {registerCategory, registerBanner, registerCalendar}
+const uploadInfo = multer({
+    storage: multer.diskStorage({
+        destination(req, file, done) {
+            done(null, 'uploadInfo/')
+        },
+        filename(req, file, done) {
+            const ext = path.extname(file.originalname);
+            done(null, path.basename(file.originalname, ext) + Date.now() + ext);
+        },
+    }),
+    limits: {fileSize: 5*1024*1024}
+});
+
+module.exports = {registerCategory, registerBanner, registerCalendar, registerInfo}
