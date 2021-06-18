@@ -18,6 +18,7 @@ dotenv.config();
 const mainRouter = require('./routes/main');
 const promiseRouter = require('./routes/promise');
 const adminRouter = require('./routes/admin');
+const v1Router = require('./routes/v1.0.0');
 const authRouter = require('./routes/auth');
 const { sequelize } = require('./models');
 const logger = require('./logger');
@@ -62,7 +63,7 @@ app.use(cookieParser(process.env.COOKIE_SECRET));
 const sessionOption = {
     resave: false,
     saveUninitialized: false,
-    secret: process.env['COOKIE_SECRET'],
+    secret: process.env.COOKIE_SECRET,
     cookie: {
         httpOnly: true,
         secure: false,
@@ -78,12 +79,12 @@ app.use(session(sessionOption));
 // app.use(passport.initialize());
 // app.use(passport.session());
 
-app.use(cors());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use('/api/v1/main', mainRouter);
 app.use('/api/v1/promise', promiseRouter);
 app.use('/api/v1/admin', adminRouter);
+app.use('/api/v1/v1.0.0', v1Router)
 app.use('/api/v1/auth', authRouter);
 
 app.use((req, res, next) => {

@@ -23,7 +23,7 @@ const postJoin = async (req, res, next) => {
 }
 
 const postLogin = (req, res, next) => {
-    passport.authenticate('local', (authError, user, info) => {
+    passport.authenticate('local', {session: false}, (authError, user, info) => {
         if (authError) {
             console.error(authError);
             return next(authError);
