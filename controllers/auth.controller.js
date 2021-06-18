@@ -3,19 +3,19 @@ const passport = require('passport');
 const bcrypt = require('bcrypt');
 
 const postJoin = async (req, res, next) => {
-    const {userId, password, status} = req.body;
+    const {userId, password} = req.body;
     try {
         const exUser = await model.User.findOne({where: {userId}});
         if (exUser) {
-            return res.redirect('/join?error=exist');
+            return res.status(400).json({success: false, message: '이미 존재하는 이메일입니다.'});
+        } else {
+            const hash = await bcrypt.hash(password, 12);
+            await model.User.create({
+                userId,
+                password: hash
+            });
+            return res.status(200).json({success: true, message: '이메일이 성공적으로 등록되었습니다.'});
         }
-        const hash = await bcrypt.hash(password, 12);
-        await model.User.create({
-            userId,
-            password: hash,
-            status
-        });
-        res.send('Successfully Join...');
     } catch (e) {
         console.log("error!!");
         return next(e);
@@ -36,7 +36,7 @@ const postLogin = (req, res, next) => {
                 console.error(loginError);
                 return next(loginError);
             }
-            return res.send('Successfully Login...');
+            return res.status(200).json({success: true, status: user.status, message: '로그인에 성공하였습니다.'})
         });
     }) (req, res, next);
 }
@@ -49,7 +49,7 @@ const getLogout = (req, res) => {
             return res.send('session is not destroy');
         } else {
             console.log('session destroy success');
-            return res.send('session is destroy (login please)');
+            return res.send({message: '세션이 종료되었습니다. 다시 로그인 해주세요.'});
         }
     });
 };
