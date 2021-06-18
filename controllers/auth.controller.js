@@ -1,6 +1,7 @@
 const model = require("../models")
 const passport = require('passport');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const postJoin = async (req, res, next) => {
     const {userId, password} = req.body;
@@ -36,7 +37,18 @@ const postLogin = (req, res, next) => {
                 console.error(loginError);
                 return next(loginError);
             }
-            return res.status(200).json({success: true, status: user.status, message: '로그인에 성공하였습니다.'})
+            // jwt 토큰
+            const token = jwt.sign({
+                userId: user.userId,
+                status: user.status,
+            }, process.env.JWT_SECRET, {
+                expiresIn: '1m',
+                issuer: 'wevote',
+            });
+
+            res.cookie('user', token);
+
+            return res.status(200).json({success: true, status: user.status, message: '로그인에 성공하였습니다.', token})
         });
     }) (req, res, next);
 }

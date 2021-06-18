@@ -2,7 +2,7 @@ const model = require("../models");
 const jwt = require('jsonwebtoken');
 
 const issueLoginToken = async (req, res) => {
-    const {userId, password} = req.body;
+    const {userId} = req.body;
     try {
         const user = await model.User.findOne({
             where: {userId}
@@ -14,6 +14,7 @@ const issueLoginToken = async (req, res) => {
             expiresIn: '1m',
             issuer: 'wevote',
         });
+        res.cookie('user', token);
         return res.json({
             code: 200,
             message: '토큰이 발급되었습니다',
