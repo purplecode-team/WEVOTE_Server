@@ -4,8 +4,8 @@ module.exports = class User extends Sequelize.Model {
     return super.init({
       userId: {
         type: Sequelize.STRING(500),
-        allowNull: true,
-        unique: true
+        allowNull: false,
+        primaryKey: true
       },
       password: {
         type: Sequelize.STRING(255),
