@@ -1,7 +1,7 @@
 const model = require("../models");
 const jwt = require('jsonwebtoken');
 
-const issueToken = async (req, res) => {
+const issueLoginToken = async (req, res) => {
     const {userId, password} = req.body;
     try {
         const user = await model.User.findOne({
@@ -28,4 +28,4 @@ const issueToken = async (req, res) => {
     }
 }
 
-module.exports = {issueToken}
+module.exports = {issueLoginToken}
