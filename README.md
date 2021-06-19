@@ -2,6 +2,7 @@
 
 npx sequelize db:create
 
+sudo su
 npm start
 
 **개발용 서버 구동**<br>
