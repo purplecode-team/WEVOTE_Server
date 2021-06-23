@@ -127,7 +127,7 @@ nunjucks.configure('views', {
 });
 
 let corsOption = {
-    origin: 'http://34.64.235.182:80',// 허락하는 요청 주소
+    origin: 'http://localhost:80',// 허락하는 요청 주소
     credentials: true // true로 하면 설정한 내용을 response 헤더에 추가 해줍니다.
 }
 
