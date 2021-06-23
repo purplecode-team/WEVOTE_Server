@@ -102,6 +102,8 @@ const hpp = require('hpp');
 const cors = require("cors");
 
 
+
+
 dotenv.config();
 // const redisClient = redis.createClient({
 //     url: `redis://${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`,
@@ -123,6 +125,13 @@ nunjucks.configure('views', {
     express: app,
     watch: true,
 });
+
+let corsOption = {
+    origin: 'http://34.64.235.182:80',// 허락하는 요청 주소
+    credentials: true // true로 하면 설정한 내용을 response 헤더에 추가 해줍니다.
+}
+
+app.use(cors(corsOption)); // CORS 미들웨어 추가
 
 sequelize.sync({ force: false })
     .then(() => {
@@ -158,7 +167,7 @@ if (process.env.NODE_ENV === 'production') {
     // sessionOption.cookie.secure = true;
 }
 app.use(session(sessionOption));
-app.use(cors());
+
 // app.use(passport.initialize());
 // app.use(passport.session());
 
