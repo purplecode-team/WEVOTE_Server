@@ -9,7 +9,7 @@
 //
 // const {sequelize} = require('./models');
 //
-// const cors = require("cors");
+
 //
 // dotenv.config();
 //
@@ -99,6 +99,7 @@ const dotenv = require('dotenv');
 // const passport = require('passport');
 const helmet = require('helmet');
 const hpp = require('hpp');
+const cors = require("cors");
 
 
 dotenv.config();
@@ -157,6 +158,7 @@ if (process.env.NODE_ENV === 'production') {
     // sessionOption.cookie.secure = true;
 }
 app.use(session(sessionOption));
+app.use(cors());
 // app.use(passport.initialize());
 // app.use(passport.session());
 
