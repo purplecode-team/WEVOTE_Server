@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aca63dfe-f385-411a-8efe-ec710ca1891c" name="Default Changelist" comment="modify - 배포  수정" />
+    <list default="true" id="aca63dfe-f385-411a-8efe-ec710ca1891c" name="Default Changelist" comment="modify - cors 주소 변경" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -70,7 +70,11 @@
       <workItem from="1620434429186" duration="18414000" />
       <workItem from="1622278268877" duration="5747000" />
       <workItem from="1622636944517" duration="3088000" />
-      <workItem from="1622804223987" duration="6582000" />
+      <workItem from="1622804223987" duration="11877000" />
+      <workItem from="1623942725716" duration="2000" />
+      <workItem from="1624096544185" duration="2908000" />
+      <workItem from="1624444622121" duration="6304000" />
+      <workItem from="1624458991958" duration="673000" />
     </task>
     <task id="LOCAL-00001" summary="feat: package.json 생성 및 환경 설정">
       <created>1613468073392</created>
@@ -331,7 +335,35 @@
       <option name="project" value="LOCAL" />
       <updated>1622815990237</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="modify - 배포  수정">
+      <created>1622816385756</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1622816385756</updated>
+    </task>
+    <task id="LOCAL-00039" summary="modify- cors 추가">
+      <created>1624451884437</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1624451884437</updated>
+    </task>
+    <task id="LOCAL-00040" summary="modify- cors 추가">
+      <created>1624458885987</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1624458885987</updated>
+    </task>
+    <task id="LOCAL-00041" summary="modify - cors 주소 변경">
+      <created>1624459293565</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1624459293565</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -350,8 +382,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: package.json 생성 및 환경 설정" />
-    <MESSAGE value="feat: package.json 추가" />
     <MESSAGE value="git ignore 추가?" />
     <MESSAGE value="Chore: sequelize-auto 관련 모듈 추가" />
     <MESSAGE value="Feat: db sequelize model 생성" />
@@ -375,6 +405,8 @@
     <MESSAGE value="modify - package.json npm start 수정" />
     <MESSAGE value="modify - package.json 수정" />
     <MESSAGE value="modify - 배포  수정" />
-    <option name="LAST_COMMIT_MESSAGE" value="modify - 배포  수정" />
+    <MESSAGE value="modify- cors 추가" />
+    <MESSAGE value="modify - cors 주소 변경" />
+    <option name="LAST_COMMIT_MESSAGE" value="modify - cors 주소 변경" />
   </component>
 </project>
