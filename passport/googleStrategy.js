@@ -12,15 +12,15 @@ module.exports = () => {
         console.log('google profile', profile);
         try {
             const exUser = await User.findOne({
-                where: {snsId: profile.id, provider: 'google'},
+                where: {userId: profile.id, provider: 'google'},
             });
             if (exUser) {
                 done(null, exUser);
             } else {
                 const newUser = await User.create({
-                    userId: profile._json.email,
-                    snsId: profile.id,
-                    provider: 'kakao'
+                    userEmail: profile._json.email,
+                    userId: profile.id,
+                    provider: 'google'
                 });
                 done(null, newUser);
             }

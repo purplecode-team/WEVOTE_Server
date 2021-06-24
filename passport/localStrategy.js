@@ -18,7 +18,7 @@ module.exports = () => {
                     done(null, false, {message: '비밀번호 오류입니다.'});
                 }
             } else {
-                done(null, false, {message: '비가입 회원입니다.'});
+                done(null, false, {message: '미가입 회원입니다.'});
             }
         } catch(e) {
             console.error(e);
