@@ -4,18 +4,19 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const postJoin = async (req, res, next) => {
-    const {userId, password} = req.body;
+    const {userId, userEmail, password} = req.body;
     try {
         const exUser = await model.User.findOne({where: {userId}});
         if (exUser) {
-            return res.status(400).json({success: false, message: '이미 존재하는 이메일입니다.'});
+            return res.status(400).json({success: false, message: '이미 존재하는 아이디입니다.'});
         } else {
             const hash = await bcrypt.hash(password, 12);
             await model.User.create({
                 userId,
+                userEmail,
                 password: hash
             });
-            return res.status(200).json({success: true, message: '이메일이 성공적으로 등록되었습니다.'});
+            return res.status(200).json({success: true, message: '아이디가 성공적으로 등록되었습니다.'});
         }
     } catch (e) {
         console.log("error!!");
@@ -48,7 +49,13 @@ const postLogin = (req, res, next) => {
 
             res.cookie('user', token);
 
-            return res.status(200).json({success: true, status: user.status, message: '로그인에 성공하였습니다.', token})
+            return res.status(200).json({
+                success: true,
+                userId: user.userId,
+                status: user.status,
+                message: '로그인에 성공하였습니다.',
+                token
+            })
         });
     }) (req, res, next);
 }

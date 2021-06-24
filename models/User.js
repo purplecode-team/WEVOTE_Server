@@ -8,8 +8,8 @@ module.exports = class User extends Sequelize.Model {
         primaryKey: true
       },
       userId: {
-        type: Sequelize.STRING(255),
-        allowNull: true
+        type: Sequelize.STRING(50),
+        allowNull: false
       },
       password: {
         type: Sequelize.STRING(255),
@@ -20,10 +20,10 @@ module.exports = class User extends Sequelize.Model {
         allowNull: false,
         defaultValue: 'local'
       },
-      snsId: {
-        type: Sequelize.STRING(30),
-        allowNull: true,
-      },
+      //snsId: {
+      //  type: Sequelize.STRING(30),
+      //  allowNull: true,
+      //},
       status: {
         type: Sequelize.STRING(255),
         allowNull: false,
