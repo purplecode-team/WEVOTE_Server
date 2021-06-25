@@ -109,9 +109,10 @@ const registerCalendar = async(req, res) => {
 const registerInfo = async(req, res) => {
     try {
         await checkInfoFolder();
-        uploadInfo.single('img')(req, res, () => {
-            console.log(req.file);
-            res.json({url:`/register-info/${req.file.filename}`});
+        uploadInfo.array('img', 10)(req, res, () => {
+            console.log(req.files);
+            let fileArr = req.files.map(e => e.filename);
+            res.json({url:`/register-info/${fileArr}`});
             }
         )
     } catch(e) {
