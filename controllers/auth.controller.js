@@ -47,7 +47,7 @@ const postLogin = (req, res, next) => {
                 issuer: 'wevote',
             });
 
-            res.cookie('user', token);
+            // res.cookie('user', token);
 
             return res.status(200).json({
                 success: true,
