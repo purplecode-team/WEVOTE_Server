@@ -1,7 +1,18 @@
-const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
 const model = require("../models");
+
+const multer = require('multer');
+const multerS3 = require('multer-s3');
+const aws = require('aws-sdk');
+const dotenv = require('dotenv');
+dotenv.config({path: '../.env'})
+
+const s3 = new aws.S3({
+    accessKeyId: process.env.KEY_ID,
+    secretAccessKey: process.env.SECRET_KEY,
+    region: process.env.REGION
+});
 
 const registerCategory = async (req, res, next) => {
     for (let i = 0; i < req.body.length; i++) {
@@ -95,10 +106,10 @@ const deleteBanner = async(req, res, next) => {
 
 const registerCalendar = async(req, res) => {
     try {
-        await checkFolder();
+        //await checkFolder();
         uploadCalendar.single('img')(req, res, () => {
             console.log(req.file);
-            res.json({url:`/register-calendar/${req.file.filename}`});
+            res.json({'success': true});
             }
         )
     } catch(e) {
@@ -108,11 +119,10 @@ const registerCalendar = async(req, res) => {
 
 const registerInfo = async(req, res) => {
     try {
-        await checkInfoFolder();
+        //await checkInfoFolder();
         uploadInfo.array('img', 10)(req, res, () => {
             console.log(req.files);
-            let fileArr = req.files.map(e => e.filename);
-            res.json({url:`/register-info/${fileArr}`});
+            res.json({'success': true});
             }
         )
     } catch(e) {
@@ -139,29 +149,31 @@ const checkInfoFolder = async() => {
 }
 
 const uploadCalendar = multer({
-    storage: multer.diskStorage({
-        destination(req, file, cb) {
-            cb(null, 'uploadCalendar/')
-        },
-        filename(req, file, cb) {
-            const ext = path.extname(file.originalname);
-            cb(null, path.basename(file.originalname, ext) + Date.now() + ext);
-        },
-    }),
-    limits: {fileSize: 5*1024*1024}
+    storage: multerS3({
+        s3: s3,
+        bucket: 'uploadCalendar',
+        contentType: multerS3.AUTO_CONTENT_TYPE,
+        acl: 'public-read-write',
+        key: function(req, file, cb) {
+            let extension = path.extname(file.originalname);
+            cb(null, Date.now().toString() + extension)
+        }
+    })
 });
 
 const uploadInfo = multer({
-    storage: multer.diskStorage({
-        destination(req, file, done) {
-            done(null, 'uploadInfo/')
-        },
-        filename(req, file, done) {
-            const ext = path.extname(file.originalname);
-            done(null, path.basename(file.originalname, ext) + Date.now() + ext);
-        },
-    }),
-    limits: {fileSize: 5*1024*1024}
+    storage: multerS3({
+        s3: s3,
+        bucket: 'uploadInfo',
+        contentType: multerS3.AUTO_CONTENT_TYPE,
+        acl: 'public-read-write',
+        key: function(req, file, cb) {
+            let extension = path.extname(file.originalname);
+            cb(null, Date.now().toString() + extension)
+        }
+    })
 });
+
+
 
 module.exports = {registerCategory, registerBanner, registerCalendar, registerInfo}
