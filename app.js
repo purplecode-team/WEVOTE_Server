@@ -118,6 +118,9 @@ const { sequelize } = require('./models');
 const logger = require('./logger');
 const passportConfig = require('./passport');
 const app = express();
+
+const { verifyToken, verifyAdmin } = require('./routes/middlewares');
+
 passportConfig(); // 패스포트 설정
 app.set('port', process.env.PORT || 8080);
 app.set('view engine', 'html');
@@ -177,7 +180,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use('/api/v1/main', mainRouter);
 app.use('/api/v1/promise', promiseRouter);
-app.use('/api/v1/admin', adminRouter);
+app.use('/api/v1/admin', verifyToken, verifyAdmin, adminRouter);
 app.use('/api/v1/v1.0.0', v1Router)
 app.use('/api/v1/auth', authRouter);
 

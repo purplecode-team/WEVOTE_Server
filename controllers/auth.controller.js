@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const postJoin = async (req, res, next) => {
-    const {userId, userEmail, password} = req.body;
+    const {userId, userEmail, password, status} = req.body;
     try {
         const exUser = await model.User.findOne({where: {userId}});
         if (exUser) {
@@ -14,7 +14,8 @@ const postJoin = async (req, res, next) => {
             await model.User.create({
                 userId,
                 userEmail,
-                password: hash
+                password: hash,
+                status
             });
             return res.status(200).json({success: true, message: '아이디가 성공적으로 등록되었습니다.'});
         }
@@ -43,7 +44,7 @@ const postLogin = (req, res, next) => {
                 userId: user.userId,
                 status: user.status,
             }, process.env.JWT_SECRET, {
-                expiresIn: '1m',
+                expiresIn: '1h',
                 issuer: 'wevote',
             });
 
@@ -60,6 +61,23 @@ const postLogin = (req, res, next) => {
     }) (req, res, next);
 }
 
+/*
+const getLogout = (req, res) => {
+    try {
+        req.decoded.token = "";
+        return res.status(200).json({
+            success: true,
+            message: '로그아웃에 성공하였습니다.'
+        })
+    } catch(e) {
+        return res.status(500).json({
+            success: false,
+            message: '로그아웃 실패'
+        })
+    }
+}
+
+// session 이용한 로그아웃
 const getLogout = (req, res) => {
     req.logout();
     req.session.destroy((e) => {
@@ -72,5 +90,6 @@ const getLogout = (req, res) => {
         }
     });
 };
+*/
 
-module.exports = {postJoin, postLogin, getLogout}
+module.exports = {postJoin, postLogin}

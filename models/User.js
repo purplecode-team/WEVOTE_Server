@@ -2,13 +2,13 @@ const Sequelize = require('sequelize');
 module.exports = class User extends Sequelize.Model {
   static init(sequelize) {
     return super.init({
-      userEmail: {
-        type: Sequelize.STRING(500),
+      userId: {
+        type: Sequelize.STRING(50),
         allowNull: false,
         primaryKey: true
       },
-      userId: {
-        type: Sequelize.STRING(50),
+      userEmail: {
+        type: Sequelize.STRING(500),
         allowNull: false
       },
       password: {

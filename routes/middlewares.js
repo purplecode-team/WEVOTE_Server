@@ -35,3 +35,15 @@ exports.verifyToken = (req, res, next) => {
         })
     }
 }
+
+exports.verifyAdmin = (req, res, next) => {
+    if (req.decoded.status === "admin") {
+            next();
+    } else {
+        return res.status(410).json({
+            code: 410,
+            success: false,
+            message: '접근 권한이 없습니다.'
+        })
+    }
+}
