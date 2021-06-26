@@ -17,7 +17,12 @@ const postJoin = async (req, res, next) => {
                 password: hash,
                 status
             });
-            return res.status(200).json({success: true, message: '아이디가 성공적으로 등록되었습니다.'});
+            return res.status(200).json({
+                success: true,
+                userId: userId,
+                userEmail: userEmail,
+                status: status,
+                message: '아이디가 성공적으로 등록되었습니다.'});
         }
     } catch (e) {
         console.log("error!!");
