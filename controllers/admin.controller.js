@@ -146,7 +146,9 @@ const registerInfo = async(req, res) => {
     try {
         //await checkInfoFolder();
         uploadInfo.array('img', 10)(req, res, () => {
-            console.log(req.files);
+            console.log(req);
+            const infoImgs = req.files;
+            infoImgs.forEach(img => model.ElectionInfo.create({image: img.location}))
             res.json({'success': true});
             }
         )

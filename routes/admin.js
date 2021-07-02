@@ -5,6 +5,6 @@ const router = express.Router();
 
 router.post('/register-category', admin.registerCategory);
 router.post('/register-banner', admin.registerBanner);
-router.post('/register-calendar', admin.registerCalendar, admin.postCalendar);
+router.post('/register-calendar', admin.registerCalendar);
 router.post('/register-info', admin.registerInfo);
 module.exports = router;
