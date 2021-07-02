@@ -168,6 +168,8 @@ const getInfoImgList = async(req, res) => {
     }
 }
 
+
+
 /*
 const checkFolder = async() => {
     try {
@@ -246,8 +248,8 @@ const deleteCalendar = async(calendar) => {
     const url = image.url.split('/');
     const delImage = url[url.length - 1]
     const params = {
-        Bucket: 'gpbucket-bomi',
-        Key: delImage
+        bucket: 'gpbucket-bomi',
+        key: delImage
     }
     s3.deleteObject(params, function(err, data) {
         if (err) {
@@ -258,4 +260,37 @@ const deleteCalendar = async(calendar) => {
     })
 }
 
-module.exports = {registerCategory, registerBanner, registerCalendar, registerInfo, postCalendar, getInfoImgList}
+const deleteInfoImg = async(req, res, next) => {
+    const oldImg = await model.ElectionInfo.findOne({where: {id: req.params.id}})
+
+    const url = oldImg.image.split('/');
+    const delImage = url[url.length - 1]
+    console.log(delImage)
+    const key = 'info/'+delImage;
+    console.log(key)
+    const params = {
+        Bucket: 'gpbucket-bomi',
+        Key: key
+    }
+    // s3 속에 객체까지 지우는 코드 (현재 에러나서 보류)
+    // s3.deleteObject(params, function(err, data) {
+    //     if (err) {
+    //         console.log(err)
+    //         console.log("aws image delete error")
+    //         return res.json({"success":false})
+    //     } else {
+    //         model.ElectionInfo.destroy({where: {id: req.params.id}})
+    //         console.log("aws image delete success")
+    //         return res.json({"success": true})
+    //     }
+    // })
+
+    await model.ElectionInfo.destroy({where: {id: req.params.id}})
+
+    return res.json({"success": true})
+
+
+
+}
+
+module.exports = {registerCategory, registerBanner, registerCalendar, registerInfo, postCalendar, getInfoImgList, deleteInfoImg}

@@ -8,4 +8,5 @@ router.post('/register-banner', admin.registerBanner);
 router.post('/register-calendar', admin.registerCalendar);
 router.post('/register-info', admin.registerInfo);
 router.get('/info-list', admin.getInfoImgList);
+router.delete('/info/:id', admin.deleteInfoImg);
 module.exports = router;
