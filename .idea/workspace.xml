@@ -4,12 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aca63dfe-f385-411a-8efe-ec710ca1891c" name="Default Changelist" comment="Feat- 메인페이지 캘린더 이미지  경로 불러오기">
-      <change afterPath="$PROJECT_DIR$/models/ElectionInfo.js" afterDir="false" />
+    <list default="true" id="aca63dfe-f385-411a-8efe-ec710ca1891c" name="Default Changelist" comment="feat - 선거안내 이미지 리스트 호출하는 api 작성">
       <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/admin.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/admin.controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/admin.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -353,7 +351,14 @@
       <option name="project" value="LOCAL" />
       <updated>1625246434375</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="feat - 선거정보 이미지 db 생성 및 선거정보 이미지 db에 저장">
+      <created>1625247362201</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1625247362201</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -372,8 +377,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="git ignore 추가?" />
-    <MESSAGE value="Chore: sequelize-auto 관련 모듈 추가" />
     <MESSAGE value="Feat: db sequelize model 생성" />
     <MESSAGE value="Feat: 메인페이지 상단 검색창 구현" />
     <MESSAGE value="Modify: 메인페이지 department endpoint 수정" />
@@ -397,6 +400,8 @@
     <MESSAGE value="modify - 배포  수정" />
     <MESSAGE value="modify - s3 연결 및 캘린더 이미지 등록시 경로 db 저장" />
     <MESSAGE value="Feat- 메인페이지 캘린더 이미지  경로 불러오기" />
-    <option name="LAST_COMMIT_MESSAGE" value="Feat- 메인페이지 캘린더 이미지  경로 불러오기" />
+    <MESSAGE value="feat - 선거정보 이미지 db 생성 및 선거정보 이미지 db에 저장" />
+    <MESSAGE value="feat - 선거안내 이미지 리스트 호출하는 api 작성" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat - 선거안내 이미지 리스트 호출하는 api 작성" />
   </component>
 </project>

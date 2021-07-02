@@ -157,6 +157,17 @@ const registerInfo = async(req, res) => {
     }
 }
 
+const getInfoImgList = async(req, res) => {
+    try {
+        const data = await model.ElectionInfo.findAll();
+        console.log(data);
+        return res.json(data);
+    }
+    catch (e) {
+        console.log(e)
+    }
+}
+
 /*
 const checkFolder = async() => {
     try {
@@ -247,4 +258,4 @@ const deleteCalendar = async(calendar) => {
     })
 }
 
-module.exports = {registerCategory, registerBanner, registerCalendar, registerInfo, postCalendar}
+module.exports = {registerCategory, registerBanner, registerCalendar, registerInfo, postCalendar, getInfoImgList}
