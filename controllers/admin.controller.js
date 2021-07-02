@@ -130,6 +130,7 @@ const registerInfo = async(req, res) => {
     }
 }
 
+/*
 const checkFolder = async() => {
     try {
         fs.readdirSync('uploadCalendar');
@@ -147,6 +148,7 @@ const checkInfoFolder = async() => {
         fs.mkdirSync('uploadInfo');
     }
 }
+*/
 
 const uploadCalendar = multer({
     storage: multerS3({
@@ -174,6 +176,47 @@ const uploadInfo = multer({
     })
 });
 
+const postCalendar = async(req, res, next) => {
+    try {
+        const {url} = req.body;
+        if (url !== "") {
+            const oldCalendar = await model.Calendar.findOne({where: {url}})
+            await deleteCalendar(oldCalendar)
+        }
+        const calendarImg = req.body;
+        await model.Calendar.create({image: calendarImg.location});
+        return res.json({"imageUrl": calendarImg.location, "success": true});
+    } catch (e) {
+        console.log(e);
+    }
+}
 
+// calendar 작성 후 추가
+const postInfo = async(req, res, next) => {
+    try {
+        return res.json({"success": true});
+    } catch (e) {
+        console.log(e);
+    }
+}
 
-module.exports = {registerCategory, registerBanner, registerCalendar, registerInfo}
+// 이미지 삭제
+const deleteCalendar = async(calendar) => {
+    const oldCalendar = calendar.url
+    const image = await model.Calendar.findOne({where: {oldCalendar}})
+    const url = image.url.split('/');
+    const delImage = url[url.length - 1]
+    const params = {
+        Bucket: 'uploadCalendar',
+        Key: delImage
+    }
+    s3.deleteObject(params, function(err, data) {
+        if (err) {
+            console.log("aws image delete error")
+        } else {
+            console.log("aws image delete success")
+        }
+    })
+}
+
+module.exports = {registerCategory, registerBanner, registerCalendar, registerInfo, postCalendar}
