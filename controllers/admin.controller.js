@@ -104,11 +104,36 @@ const deleteBanner = async(req, res, next) => {
     }
 }
 
+const postCalendarDB = async(file) => {
+    try {
+        console.log(file);
+        const {url} = file.key;
+        if (url !== "") {
+            const oldCalendar = await model.Calendar.findOne({where: {url}})
+            await deleteCalendar(oldCalendar)
+        }
+        const calendarImg = file;
+        await model.Calendar.create({image: calendarImg.location});
+        return res.json({"imageUrl": calendarImg.location, "success": true});
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+
 const registerCalendar = async(req, res) => {
     try {
         //await checkFolder();
         uploadCalendar.single('img')(req, res, () => {
             console.log(req.file);
+
+            const url = req.file.location;
+            if (url !== "") {
+                const oldCalendar = model.Calendar.findOne({where: {image:url}})
+                deleteCalendar(oldCalendar)
+            }
+            const calendarImg = req.file;
+            model.Calendar.create({image: calendarImg.location});
             res.json({'success': true});
             }
         )
@@ -153,7 +178,7 @@ const checkInfoFolder = async() => {
 const uploadCalendar = multer({
     storage: multerS3({
         s3: s3,
-        bucket: 'uploadCalendar',
+        bucket: 'gpbucket-bomi/calendar',
         contentType: multerS3.AUTO_CONTENT_TYPE,
         acl: 'public-read-write',
         key: function(req, file, cb) {
@@ -166,7 +191,7 @@ const uploadCalendar = multer({
 const uploadInfo = multer({
     storage: multerS3({
         s3: s3,
-        bucket: 'uploadInfo',
+        bucket: 'gpbucket-bomi/info',
         contentType: multerS3.AUTO_CONTENT_TYPE,
         acl: 'public-read-write',
         key: function(req, file, cb) {
@@ -178,7 +203,8 @@ const uploadInfo = multer({
 
 const postCalendar = async(req, res, next) => {
     try {
-        const {url} = req.body;
+        console.log(req.file);
+        const {url} = req.file.key;
         if (url !== "") {
             const oldCalendar = await model.Calendar.findOne({where: {url}})
             await deleteCalendar(oldCalendar)
@@ -207,7 +233,7 @@ const deleteCalendar = async(calendar) => {
     const url = image.url.split('/');
     const delImage = url[url.length - 1]
     const params = {
-        Bucket: 'uploadCalendar',
+        Bucket: 'gpbucket-bomi',
         Key: delImage
     }
     s3.deleteObject(params, function(err, data) {
