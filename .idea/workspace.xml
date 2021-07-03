@@ -76,7 +76,11 @@
       <workItem from="1620434429186" duration="18414000" />
       <workItem from="1622278268877" duration="5747000" />
       <workItem from="1622636944517" duration="3088000" />
-      <workItem from="1622804223987" duration="6582000" />
+      <workItem from="1622804223987" duration="11877000" />
+      <workItem from="1623942725716" duration="2000" />
+      <workItem from="1624096544185" duration="2908000" />
+      <workItem from="1624444622121" duration="6304000" />
+      <workItem from="1624458991958" duration="673000" />
     </task>
     <task id="LOCAL-00001" summary="feat: package.json 생성 및 환경 설정">
       <created>1613468073392</created>
@@ -364,6 +368,33 @@
       <option name="presentableId" value="LOCAL-00041" />
       <option name="project" value="LOCAL" />
       <updated>1625247815802</updated>
+    <task id="LOCAL-00038" summary="modify - 배포  수정">
+      <created>1622816385756</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1622816385756</updated>
+    </task>
+    <task id="LOCAL-00039" summary="modify- cors 추가">
+      <created>1624451884437</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1624451884437</updated>
+    </task>
+    <task id="LOCAL-00040" summary="modify- cors 추가">
+      <created>1624458885987</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1624458885987</updated>
+    </task>
+    <task id="LOCAL-00041" summary="modify - cors 주소 변경">
+      <created>1624459293565</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1624459293565</updated>
     </task>
     <option name="localTasksCounter" value="42" />
     <servers />
@@ -384,6 +415,8 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="git ignore 추가?" />
+    <MESSAGE value="Chore: sequelize-auto 관련 모듈 추가" />
     <MESSAGE value="Feat: db sequelize model 생성" />
     <MESSAGE value="Feat: 메인페이지 상단 검색창 구현" />
     <MESSAGE value="Modify: 메인페이지 department endpoint 수정" />
@@ -410,5 +443,8 @@
     <MESSAGE value="feat - 선거정보 이미지 db 생성 및 선거정보 이미지 db에 저장" />
     <MESSAGE value="feat - 선거안내 이미지 리스트 호출하는 api 작성" />
     <option name="LAST_COMMIT_MESSAGE" value="feat - 선거안내 이미지 리스트 호출하는 api 작성" />
+    <MESSAGE value="modify- cors 추가" />
+    <MESSAGE value="modify - cors 주소 변경" />
+    <option name="LAST_COMMIT_MESSAGE" value="modify - cors 주소 변경" />
   </component>
 </project>

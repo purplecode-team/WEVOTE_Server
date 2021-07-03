@@ -9,7 +9,7 @@
 //
 // const {sequelize} = require('./models');
 //
-// const cors = require("cors");
+
 //
 // dotenv.config();
 //
@@ -99,6 +99,9 @@ const dotenv = require('dotenv');
 // const passport = require('passport');
 const helmet = require('helmet');
 const hpp = require('hpp');
+const cors = require("cors");
+
+
 
 
 dotenv.config();
@@ -122,6 +125,13 @@ nunjucks.configure('views', {
     express: app,
     watch: true,
 });
+
+let corsOption = {
+    origin: 'http://localhost:80',// 허락하는 요청 주소
+    credentials: true // true로 하면 설정한 내용을 response 헤더에 추가 해줍니다.
+}
+
+app.use(cors(corsOption)); // CORS 미들웨어 추가
 
 sequelize.sync({ force: false })
     .then(() => {
@@ -157,6 +167,7 @@ if (process.env.NODE_ENV === 'production') {
     // sessionOption.cookie.secure = true;
 }
 app.use(session(sessionOption));
+
 // app.use(passport.initialize());
 // app.use(passport.session());
 

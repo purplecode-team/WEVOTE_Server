@@ -1,9 +1,18 @@
 const model = require("../models")
 const Sequelize = require('sequelize');
 
+function renameKeys(obj, newKeys) {
+    const keyValues = Object.keys(obj).map(key => {
+        const newKey = newKeys[key] || key;
+        return { [newKey]: obj[key] };
+    });
+    return Object.assign({}, ...keyValues);
+}
+
 const getMajor = async (req, res, next) => {
     try {
-        const result2 = await model.College.findAll({
+        let result2 = await model.College.findAll({
+            //raw: true,
             include: [
                 {
                     model: model.Major,
@@ -23,6 +32,42 @@ const getMajor = async (req, res, next) => {
                 }
             ]
         })
+
+        console.log(result2)
+
+
+        console.log("-------------------========================")
+
+        result2 = result2.map(el => el.get({ plain: true }));
+
+        console.log(result2)
+
+        console.log("-------------------========================")
+
+
+        // result2.prototype.renameProperty = function (oldName, newName) {
+        //     // Do nothing if the names are the same
+        //     if (oldName === newName) {
+        //         return this;
+        //     }
+        //     // Check for the old property name to avoid a ReferenceError in strict mode.
+        //     if (this.hasOwnProperty(oldName)) {
+        //         this[newName] = this[oldName];
+        //         delete this[oldName];
+        //     }
+        //     return this;
+        // };
+        // renameProperty("collegeName", "name");
+
+        console.log(result2)
+        //
+        // const result = result2.map((res) => {
+        //     return renameKey(res['dataValues'], "majorName", "name")
+        // })
+        //
+        // console.log(result)
+
+
         return res.json(result2);
     } catch (e) {
         console.log("error!!")
