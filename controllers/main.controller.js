@@ -170,6 +170,19 @@ const getBanner = async (req, res, next) => {
     }
 }
 
+const getCalendar = async (req, res, next) => {
+    try {
+        const calendar = await model.Calendar.findOne({
+                order: [['id', 'DESC']],
+            }
+        );
+
+        return res.json(calendar);
+    } catch (e) {
+        console.log(e);
+    }
+}
+
 const getElection = async (req, res, next) => {
     try {
         // const Op = Sequelize.Op;
@@ -236,4 +249,4 @@ const getMain = async (req, res, next) => {
 }
 
 
-module.exports = {getMajor, getCollege, getCentral, getSearchCategory, getElection, getMain, getBanner}
+module.exports = {getMajor, getCollege, getCentral, getSearchCategory, getElection, getMain, getBanner, getCalendar}
