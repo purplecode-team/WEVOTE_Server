@@ -157,12 +157,23 @@ const getSearchCategory = async (req, res, next) => {
     }
 }
 
-const getBanner = async (req, res, next) => {
+//가장 후에 등록된 배너 불러오
+const getLastBanner = async (req, res, next) => {
     try {
         const banner = await model.Banner.findOne({
                 order: [['id', 'DESC']],
             }
         );
+
+        return res.json(banner);
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+const getBanner = async (req, res, next) => {
+    try {
+        const banner = await model.Banner.findAll();
 
         return res.json(banner);
     } catch (e) {

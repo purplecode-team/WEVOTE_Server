@@ -40,8 +40,6 @@ const registerMajor = async(id, majorName) => {
 const registerBanner = async(req, res, next) => {
     try {
         const bannerData = req.body;
-        console.log(bannerData);
-
         await model.Banner.create(bannerData);
 
         return res.json({"success": true});
@@ -55,10 +53,27 @@ const deleteBanner = async(req, res, next) => {
     try {
         const id = req.params.id;
 
+        await model.Banner.destroy({where: {id: req.params.id}})
+
+        return res.json({"success": true})
+
     } catch (e) {
         console.log(e);
     }
 }
 
+const updateBanner = async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        const newBannerData = req.body;
 
-module.exports = {registerCategory, registerBanner}
+        await model.Banner.update(newBannerData, {where: {id: id}})
+
+        return res.json({"success":true})
+
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+module.exports = {registerCategory, registerBanner, deleteBanner, updateBanner}
