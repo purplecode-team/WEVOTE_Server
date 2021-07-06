@@ -6,20 +6,21 @@ const User = require('../models/User');
 module.exports = () => {
     passport.use(new googleStrategy ({
         clientID: process.env.GOOGLE_ID,
-        clientSecret: process.env['GOOGLE_SECRET '],
+        clientSecret: process.env.GOOGLE_SECRET,
         callbackURL: '/auth/google/callback',
     }, async (accessToken, refreshToken, profile, done) => {
         console.log('google profile', profile);
         try {
             const exUser = await User.findOne({
-                where: {userId: profile.id, provider: 'google'},
+                where: {snsId: profile.id, provider: 'google'},
             });
             if (exUser) {
                 done(null, exUser);
             } else {
                 const newUser = await User.create({
-                    userEmail: profile._json.email,
-                    userId: profile.id,
+                    userId: profile._json.email,
+                    nickName: profile.displayName,
+                    snsId: profile.id,
                     provider: 'google'
                 });
                 done(null, newUser);
