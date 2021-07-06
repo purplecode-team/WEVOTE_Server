@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aca63dfe-f385-411a-8efe-ec710ca1891c" name="Default Changelist" comment="feat-선거안내 이미지 삭제 api">
+    <list default="true" id="aca63dfe-f385-411a-8efe-ec710ca1891c" name="Default Changelist" comment="feat - 선거안내 이미지 리스트 호출하는 api 작성">
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/admin.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/admin.controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/main.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/main.controller.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/admin.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -49,6 +49,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -341,6 +342,33 @@
       <option name="project" value="LOCAL" />
       <updated>1622815990237</updated>
     </task>
+    <task id="LOCAL-00038" summary="modify - s3 연결 및 캘린더 이미지 등록시 경로 db 저장">
+      <created>1625245962073</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1625245962073</updated>
+    </task>
+    <task id="LOCAL-00039" summary="Feat- 메인페이지 캘린더 이미지  경로 불러오기">
+      <created>1625246434375</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1625246434375</updated>
+    </task>
+    <task id="LOCAL-00040" summary="feat - 선거정보 이미지 db 생성 및 선거정보 이미지 db에 저장">
+      <created>1625247362201</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1625247362201</updated>
+    </task>
+    <task id="LOCAL-00041" summary="feat - 선거안내 이미지 리스트 호출하는 api 작성">
+      <created>1625247815802</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1625247815802</updated>
     <task id="LOCAL-00038" summary="modify - 배포  수정">
       <created>1622816385756</created>
       <option name="number" value="00038" />
@@ -411,6 +439,11 @@
     <MESSAGE value="modify - package.json npm start 수정" />
     <MESSAGE value="modify - package.json 수정" />
     <MESSAGE value="modify - 배포  수정" />
+    <MESSAGE value="modify - s3 연결 및 캘린더 이미지 등록시 경로 db 저장" />
+    <MESSAGE value="Feat- 메인페이지 캘린더 이미지  경로 불러오기" />
+    <MESSAGE value="feat - 선거정보 이미지 db 생성 및 선거정보 이미지 db에 저장" />
+    <MESSAGE value="feat - 선거안내 이미지 리스트 호출하는 api 작성" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat - 선거안내 이미지 리스트 호출하는 api 작성" />
     <MESSAGE value="modify- cors 추가" />
     <MESSAGE value="modify - cors 주소 변경" />
     <option name="LAST_COMMIT_MESSAGE" value="modify - cors 주소 변경" />

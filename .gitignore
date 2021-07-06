@@ -1,6 +1,7 @@
 node_modules/
 dist/*
 *.log
+.env
 .idea/
 .idea/workspace.xml
 .idea/codestream.xml
