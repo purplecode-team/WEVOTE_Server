@@ -69,6 +69,24 @@ const deleteBanner = async(req, res, next) => {
     try {
         const id = req.params.id;
 
+        await model.Banner.destroy({where: {id: req.params.id}})
+
+        return res.json({"success": true})
+
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+const updateBanner = async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        const newBannerData = req.body;
+
+        await model.Banner.update(newBannerData, {where: {id: id}})
+
+        return res.json({"success":true})
+
     } catch (e) {
         console.log(e);
     }
@@ -261,4 +279,4 @@ const deleteInfoImg = async(req, res, next) => {
 
 }
 
-module.exports = {registerCategory, registerBanner, registerCalendar, registerInfo, postCalendar, getInfoImgList, deleteInfoImg}
+module.exports = {registerCategory, registerBanner,  deleteBanner, updateBanner, registerCalendar, registerInfo, postCalendar, getInfoImgList, deleteInfoImg}
