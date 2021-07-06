@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const postJoin = async (req, res, next) => {
-    const {userId, userEmail, password, status} = req.body;
+    const {userId, nickName, password, status} = req.body;
     try {
         const exUser = await model.User.findOne({where: {userId}});
         if (exUser) {
@@ -13,14 +13,14 @@ const postJoin = async (req, res, next) => {
             const hash = await bcrypt.hash(password, 12);
             await model.User.create({
                 userId,
-                userEmail,
+                nickName,
                 password: hash,
                 status
             });
             return res.status(200).json({
                 success: true,
                 userId: userId,
-                userEmail: userEmail,
+                nickName: nickName,
                 status: status,
                 message: '아이디가 성공적으로 등록되었습니다.'});
         }
@@ -58,6 +58,7 @@ const postLogin = (req, res, next) => {
             return res.status(200).json({
                 success: true,
                 userId: user.userId,
+                nickName: user.nickName,
                 status: user.status,
                 message: '로그인에 성공하였습니다.',
                 token

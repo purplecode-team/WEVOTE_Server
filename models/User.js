@@ -7,8 +7,8 @@ module.exports = class User extends Sequelize.Model {
         allowNull: false,
         primaryKey: true
       },
-      userEmail: {
-        type: Sequelize.STRING(500),
+      nickName: {
+        type: Sequelize.STRING(15),
         allowNull: false
       },
       password: {
@@ -20,10 +20,10 @@ module.exports = class User extends Sequelize.Model {
         allowNull: false,
         defaultValue: 'local'
       },
-      //snsId: {
-      //  type: Sequelize.STRING(30),
-      //  allowNull: true,
-      //},
+      snsId: {
+        type: Sequelize.STRING(30),
+        allowNull: true,
+      },
       status: {
         type: Sequelize.STRING(255),
         allowNull: false,
