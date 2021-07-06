@@ -17,7 +17,7 @@ const BoardComment = require('./BoardComment');
 const Schedule = require('./Schedule');
 const Calendar = require('./Calendar');
 const Notice = require('./Notice');
-
+const ElectionInfo = require('./ElectionInfo');
 
 const db = {};
 
@@ -45,6 +45,7 @@ db.BoardComment = BoardComment;
 db.Schedule = Schedule;
 db.Calendar = Calendar;
 db.Notice = Notice;
+db.ElectionInfo = ElectionInfo;
 
 
 Category.init(sequelize);
@@ -63,6 +64,7 @@ BoardComment.init(sequelize);
 Schedule.init(sequelize);
 Calendar.init(sequelize);
 Notice.init(sequelize);
+ElectionInfo.init(sequelize);
 
 
 Category.associate(db);
@@ -81,5 +83,6 @@ BoardComment.associate(db);
 Schedule.associate(db);
 Calendar.associate(db);
 Notice.associate(db);
+ElectionInfo.associate(db);
 
 module.exports = db;
