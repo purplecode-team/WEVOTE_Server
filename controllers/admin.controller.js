@@ -279,6 +279,4 @@ const deleteInfoImg = async(req, res, next) => {
 
 }
 
-module.exports = {registerCategory, registerBanner, registerCalendar, registerInfo, postCalendar, getInfoImgList, deleteInfoImg}
-
-module.exports = {registerCategory, registerBanner, deleteBanner, updateBanner}
+module.exports = {registerCategory, registerBanner,  deleteBanner, updateBanner, registerCalendar, registerInfo, postCalendar, getInfoImgList, deleteInfoImg}
