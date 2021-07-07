@@ -67,6 +67,19 @@ const postLogin = (req, res, next) => {
     }) (req, res, next);
 }
 
+const deleteUser = async (req, res, next) => {
+    const {userId} = req.body;
+    try {
+        const delUser = await model.User.findOne({where: {userId}});
+        if (!delUser) return res.status(404).json({success: false, message: '해당 userId가 등록되어있지 않습니다.'})
+        await model.User.destroy({where: {userId: userId}})
+        return res.json({success: true, message: '정상적으로 탈퇴되었습니다.'})
+    } catch(e) {
+        console.log(e)
+        return res.json({success: false, message: '탈퇴 오류 발생'})
+    }
+}
+
 /*
 const getLogout = (req, res) => {
     try {
@@ -98,4 +111,4 @@ const getLogout = (req, res) => {
 };
 */
 
-module.exports = {postJoin, postLogin}
+module.exports = {postJoin, postLogin, deleteUser}
