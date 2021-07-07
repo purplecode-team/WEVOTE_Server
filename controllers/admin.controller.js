@@ -22,7 +22,7 @@ const registerCategory = async (req, res, next) => {
             })
         } else if (req.body.top === '단과대') {
             await model.College.create({
-                CollegeName: req.body.middle
+                collegeName: req.body.middle
             })
         } else {
             await getCollegeId(req.body.middle, req.body.bottom);
