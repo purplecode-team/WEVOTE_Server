@@ -137,7 +137,8 @@ const registerInfo = async(req, res) => {
             console.log(req);
             const infoImgs = req.files;
             infoImgs.forEach(img => model.ElectionInfo.create({image: img.location}))
-            res.json({'success': true});
+            //res.json({'success': true});
+            res.json(infoImgs)
             }
         )
     } catch(e) {
