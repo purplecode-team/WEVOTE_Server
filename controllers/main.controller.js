@@ -135,17 +135,17 @@ const getSearchCategory = async (req, res, next) => {
         let centralResult = await model.Central.findAll();
         let collegeResult = await model.College.findAll();
         let majorResult = await model.Major.findAll({
-            attributes: ['id', 'majorName']
+            attributes: ['id', 'organizationName']
         })
 
         centralResult = centralResult.map((res) =>
-            renameKey(res['dataValues'], "centralName", "name")
+            renameKey(res['dataValues'], "organizationName", "name")
         )
         collegeResult = collegeResult.map((res) => {
-            return renameKey(res['dataValues'], "collegeName", "name")
+            return renameKey(res['dataValues'], "organizationName", "name")
         })
         majorResult = majorResult.map((res) => {
-            return renameKey(res['dataValues'], "majorName", "name")
+            return renameKey(res['dataValues'], "organizationName", "name")
         })
 
         let result = collegeResult.concat(centralResult);
