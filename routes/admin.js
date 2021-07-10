@@ -9,8 +9,8 @@ router.delete('/banner/:id', admin.deleteBanner);
 router.patch('/banner/:id', admin.updateBanner);
 router.post('/calendar', admin.registerCalendar);
 router.delete('/calendar/:id', admin.deleteCalendar);
-router.post('/election-info', admin.registerInfo);
-router.get('/info-list', admin.getInfoImgList);
+router.post('/info', admin.registerInfo);
+router.get('/info', admin.getInfoImgList);
 router.delete('/info/:id', admin.deleteInfoImg);
 router.post('/central/candidate', admin.registerCandidate)
 module.exports = router;
