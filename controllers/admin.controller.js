@@ -228,22 +228,27 @@ const postInfo = async(req, res, next) => {
 }
 
 // 이미지 삭제
-const deleteCalendar = async(calendar) => {
-    const oldCalendar = calendar.url
-    const image = await model.Calendar.findOne({where: {oldCalendar}})
-    const url = image.url.split('/');
-    const delImage = url[url.length - 1]
-    const params = {
-        bucket: 'gpbucket-bomi',
-        key: delImage
-    }
-    s3.deleteObject(params, function(err, data) {
-        if (err) {
-            console.log("aws image delete error")
-        } else {
-            console.log("aws image delete success")
-        }
-    })
+const deleteCalendar = async(req, res, next) => {
+    //s3 버킷 삭제하는 곳
+    // const oldCalendar = req.params.id
+    // const image = await model.Calendar.findOne(oldCalendar)
+    // const url = image.url.split('/');
+    // const delImage = url[url.length - 1]
+    // const params = {
+    //     bucket: 'gpbucket-bomi',
+    //     key: delImage
+    // }
+    // s3.deleteObject(params, function(err, data) {
+    //     if (err) {
+    //         console.log("aws image delete error")
+    //     } else {
+    //         console.log("aws image delete success")
+    //     }
+    // })
+
+    await model.Calendar.destroy({where: {id: req.params.id}})
+
+    return res.json({"success": true})
 }
 
 const deleteInfoImg = async(req, res, next) => {
