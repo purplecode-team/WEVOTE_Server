@@ -274,9 +274,25 @@ const deleteInfoImg = async(req, res, next) => {
     await model.ElectionInfo.destroy({where: {id: req.params.id}})
 
     return res.json({"success": true})
-
-
-
 }
 
-module.exports = {registerCategory, registerBanner,  deleteBanner, updateBanner, registerCalendar, registerInfo, postCalendar, getInfoImgList, deleteInfoImg}
+
+const registerCandidate = async(req, res, next) => {
+    try {
+        const candidate = req.body;
+        console.log(candidate);
+
+        const teamData = candidate.Teams + candidate.organizationName
+
+        console.log(teamData);
+
+        await model.Team.create(teamData);
+
+        return res.json({"success": true});
+
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+module.exports = {registerCategory, registerBanner,  deleteBanner, updateBanner, registerCalendar, deleteCalendar, registerInfo, postCalendar, getInfoImgList, deleteInfoImg, registerCandidate}
