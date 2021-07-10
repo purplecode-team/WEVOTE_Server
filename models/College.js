@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 module.exports = class College extends Sequelize.Model {
     static init(sequelize) {
         return super.init({
-            collegeName: {
+            organizationName: {
                 type: Sequelize.STRING(255),
                 allowNull: false,
                 unique: true
