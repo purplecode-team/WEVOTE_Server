@@ -2,7 +2,7 @@ const express = require('express');
 const admin = require("../controllers/admin.controller");
 const router = express.Router();
 
-
+router.get('/category', admin.getCategory);
 router.post('/category', admin.registerCategory);
 router.post('/banner', admin.registerBanner);
 router.delete('/banner/:id', admin.deleteBanner);
