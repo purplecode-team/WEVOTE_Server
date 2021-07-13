@@ -45,7 +45,7 @@ const getCentral = async() => {
     }
 }
 
-const getCollege = async(req, res, next) => {
+const getCollege = async() => {
     try {
         const college = await model.College.findAll({order: Sequelize.col('id')});
         return renameKey(college, '단과대');
@@ -54,7 +54,7 @@ const getCollege = async(req, res, next) => {
     }
 }
 
-const getMajor = async(req, res, next) => {
+const getMajor = async() => {
     try {
         let major = await model.College.findAll({
             attributes: ['organizationName'],
@@ -81,24 +81,25 @@ const registerCategory = async (req, res, next) => {
     try {
         if (req.body.top === '중앙자치기구') {
             await model.Central.create({
-                centralName: req.body.middle
+                organizationName: req.body.middle
             })
         } else if (req.body.top === '단과대') {
             await model.College.create({
-                collegeName: req.body.middle
+                organizationName: req.body.middle
             })
         } else {
             await getCollegeId(req.body.middle, req.body.bottom);
         }
-        return res.json({success: true})
+        return res.json({success: true});
     } catch(e) {
-        return res.json({success: false})
+        console.log(e);
+        return res.json({success: false});
     }
 }
 
 const getCollegeId = async (collegeName, majorName) => {
     const college = await model.College.findOne({
-        where: {collegeName: collegeName}
+        where: {organizationName: collegeName}
     })
     await registerMajor(college.id, majorName)
 }
@@ -107,10 +108,37 @@ const registerMajor = async(id, majorName) => {
     try {
         await model.Major.create({
             collegeId: id,
-            majorName: majorName
+            organizationName: majorName
         })
     } catch (e) {
         console.log('registerMajor error');
+    }
+}
+
+const deleteCentral = async(req, res, next) => {
+    try {
+        await model.Central.destroy({where: {id: req.params.id}})
+        return res.json({"success": true})
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+const deleteCollege = async(req, res, next) => {
+    try {
+        await model.College.destroy({where: {id: req.params.id}})
+        return res.json({"success": true})
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+const deleteMajor = async(req, res, next) => {
+    try {
+        await model.Major.destroy({where: {id: req.params.id}})
+        return res.json({"success": true})
+    } catch (e) {
+        console.log(e);
     }
 }
 
@@ -364,4 +392,4 @@ const registerCandidate = async(req, res, next) => {
     }
 }
 
-module.exports = {getCategory, registerCategory, registerBanner,  deleteBanner, updateBanner, registerCalendar, deleteCalendar, registerInfo, postCalendar, getInfoImgList, deleteInfoImg, registerCandidate}
+module.exports = {getCategory, registerCategory, deleteCentral, deleteCollege, deleteMajor, registerBanner,  deleteBanner, updateBanner, registerCalendar, deleteCalendar, registerInfo, postCalendar, getInfoImgList, deleteInfoImg, registerCandidate}
