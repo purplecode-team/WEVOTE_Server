@@ -1,3 +1,5 @@
+const Sequelize = require('sequelize');
+
 const fs = require('fs');
 const path = require('path');
 const model = require("../models");
@@ -14,28 +16,90 @@ const s3 = new aws.S3({
     region: process.env.REGION
 });
 
+const renameKey = (object, organization) => {
+    return {'top': organization, 'middle': object}
+};
+
+//const renameMajorKey = (object, middleKey, bottomKey) => {
+//    return {'top': '학과', ['middle']: object[middleKey], ['bottom']: object[bottomKey]}
+//};
+
+const getCategory = async (req,res,next) => {
+    try {
+        const central = [await getCentral()];
+        const college = [await getCollege()];
+        const major = [await getMajor()];
+        return res.json(central.concat(college).concat(major));
+    } catch(e) {
+        console.log(e)
+    }
+}
+
+const getCentral = async() => {
+    try {
+        const central = await model.Central.findAll({order: Sequelize.col('id')});
+        console.log(JSON.stringify(central));
+        return renameKey(central, '중앙자치기구');
+    } catch(e) {
+        console.log(e)
+    }
+}
+
+const getCollege = async() => {
+    try {
+        const college = await model.College.findAll({order: Sequelize.col('id')});
+        return renameKey(college, '단과대');
+    } catch(e) {
+        console.log(e)
+    }
+}
+
+const getMajor = async() => {
+    try {
+        let major = await model.College.findAll({
+            attributes: ['organizationName'],
+            include: [
+                {
+                    model: model.Major,
+                    attributes: ['id', 'organizationName'],
+                    order: Sequelize.col('id')
+                }
+            ],
+            order: Sequelize.col('id')
+        });
+        major = renameKey(major, '학과');
+        //major = major.map((major =>
+        //    renameMajorKey(major, "organizationName", "Majors")
+        //));
+        return major;
+    } catch(e) {
+        console.log(e)
+    }
+}
+
 const registerCategory = async (req, res, next) => {
     try {
         if (req.body.top === '중앙자치기구') {
             await model.Central.create({
-                centralName: req.body.middle
+                organizationName: req.body.middle
             })
         } else if (req.body.top === '단과대') {
             await model.College.create({
-                collegeName: req.body.middle
+                organizationName: req.body.middle
             })
         } else {
             await getCollegeId(req.body.middle, req.body.bottom);
         }
-        return res.json({success: true})
+        return res.json({success: true});
     } catch(e) {
-        return res.json({success: false})
+        console.log(e);
+        return res.json({success: false});
     }
 }
 
 const getCollegeId = async (collegeName, majorName) => {
     const college = await model.College.findOne({
-        where: {collegeName: collegeName}
+        where: {organizationName: collegeName}
     })
     await registerMajor(college.id, majorName)
 }
@@ -44,10 +108,37 @@ const registerMajor = async(id, majorName) => {
     try {
         await model.Major.create({
             collegeId: id,
-            majorName: majorName
+            organizationName: majorName
         })
     } catch (e) {
         console.log('registerMajor error');
+    }
+}
+
+const deleteCentral = async(req, res, next) => {
+    try {
+        await model.Central.destroy({where: {id: req.params.id}})
+        return res.json({"success": true})
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+const deleteCollege = async(req, res, next) => {
+    try {
+        await model.College.destroy({where: {id: req.params.id}})
+        return res.json({"success": true})
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+const deleteMajor = async(req, res, next) => {
+    try {
+        await model.Major.destroy({where: {id: req.params.id}})
+        return res.json({"success": true})
+    } catch (e) {
+        console.log(e);
     }
 }
 
@@ -301,4 +392,4 @@ const registerCandidate = async(req, res, next) => {
     }
 }
 
-module.exports = {registerCategory, registerBanner,  deleteBanner, updateBanner, registerCalendar, deleteCalendar, registerInfo, postCalendar, getInfoImgList, deleteInfoImg, registerCandidate}
+module.exports = {getCategory, registerCategory, deleteCentral, deleteCollege, deleteMajor, registerBanner,  deleteBanner, updateBanner, registerCalendar, deleteCalendar, registerInfo, postCalendar, getInfoImgList, deleteInfoImg, registerCandidate}
