@@ -32,6 +32,7 @@ const getCategory = async (req,res,next) => {
         return res.json(central.concat(college).concat(major));
     } catch(e) {
         console.log(e)
+        return res.status(501).json({success: false, message: "카테고리 호출 서버 오류"})
     }
 }
 
@@ -93,7 +94,7 @@ const registerCategory = async (req, res, next) => {
         return res.json({success: true});
     } catch(e) {
         console.log(e);
-        return res.json({success: false});
+        return res.status(501).json({success: false, message: "카테고리 등록 오류"});
     }
 }
 
@@ -121,15 +122,26 @@ const deleteCentral = async(req, res, next) => {
         return res.json({"success": true})
     } catch (e) {
         console.log(e);
+        return res.status(402).json({success: false, message: "삭제 오류: id가 존재하지 않음"});
+    }
+}
+
+const deleteMajorCollege = async(req, res, next) => {
+    try {
+        await model.Major.destroy({where: {collegeId: req.params.id}})
+        await deleteCollege(req, res, next);
+    } catch (e) {
+        return res.status(402).json({success: false, message: "삭제 오류: id가 존재하지 않음"});
     }
 }
 
 const deleteCollege = async(req, res, next) => {
     try {
         await model.College.destroy({where: {id: req.params.id}})
-        return res.json({"success": true})
+        return res.status(200).json({"success": true});
     } catch (e) {
         console.log(e);
+        return res.status(402).json({success: false, message: "삭제 오류: id가 존재하지 않음"});
     }
 }
 
@@ -139,6 +151,7 @@ const deleteMajor = async(req, res, next) => {
         return res.json({"success": true})
     } catch (e) {
         console.log(e);
+        return res.status(402).json({success: false, message: "삭제 오류: id가 존재하지 않음"});
     }
 }
 
@@ -392,4 +405,4 @@ const registerCandidate = async(req, res, next) => {
     }
 }
 
-module.exports = {getCategory, registerCategory, deleteCentral, deleteCollege, deleteMajor, registerBanner,  deleteBanner, updateBanner, registerCalendar, deleteCalendar, registerInfo, postCalendar, getInfoImgList, deleteInfoImg, registerCandidate}
+module.exports = {getCategory, registerCategory, deleteCentral, deleteMajorCollege, deleteMajor, registerBanner,  deleteBanner, updateBanner, registerCalendar, deleteCalendar, registerInfo, postCalendar, getInfoImgList, deleteInfoImg, registerCandidate}
