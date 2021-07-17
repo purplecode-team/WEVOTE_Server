@@ -15,5 +15,10 @@ router.delete('/calendar/:id', admin.deleteCalendar);
 router.post('/info', admin.registerInfo);
 router.get('/info', admin.getInfoImgList);
 router.delete('/info/:id', admin.deleteInfoImg);
-router.post('/central/candidate', admin.registerCandidate)
+router.get('/candidate/:id', admin.getCandidate);
+router.post('/candidate', admin.registerCandidate);
+router.patch('/candidate/:id', admin.updateCandidate);
+router.delete('/candidate/:id', admin.deleteCandidate);
+
+
 module.exports = router;
