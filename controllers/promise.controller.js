@@ -19,7 +19,7 @@ const getPromise = async (req, res, next) => {
                     model: model.Qna,
                     attributes: ["id", "type", "comment", "time"]
                 }
-            ],where: {majorId: id}})
+            ],where: {majorId: id}, order: [['id', 'ASC']]})
 
         if (!Object.keys(data).length) {
             data = await model.Team.findAll({
@@ -35,7 +35,7 @@ const getPromise = async (req, res, next) => {
                         model: model.Qna,
                         attributes: ["id", "type", "comment", "time"]
                     }
-                ],where: {collegeId: id}})
+                ],where: {collegeId: id},order: [['id', 'ASC']]})
         }
 
         if (!Object.keys(data).length) {
@@ -52,7 +52,7 @@ const getPromise = async (req, res, next) => {
                         model: model.Qna,
                         attributes: ["id", "type", "comment", "time"]
                     }
-                ], where: {centralId: id}})
+                ], where: {centralId: id}, order: [['id', 'ASC']]})
         }
 
         let name = data[0]['dataValues']['majorName'];

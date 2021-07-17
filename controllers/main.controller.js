@@ -26,11 +26,14 @@ const getMajor = async (req, res, next) => {
                                     model: model.Runner,
                                     attributes: ['id', 'name', 'major', 'studentNum', 'position', 'picture', 'teamId']
                                 }
-                            ]
+                            ],
+                            order: [['id', 'ASC']]
                         }
-                    ]
+                    ],
+                    order: [['id', 'ASC']]
                 }
-            ]
+            ],
+            order: [['id', 'ASC']]
         })
 
         console.log(result2)
@@ -90,7 +93,8 @@ const getCollege = async (req, res, next) => {
                     ]
 
                 }
-            ]
+            ],
+            order: [['id', 'ASC']]
         })
         return res.json(result2);
     } catch (e) {
@@ -114,7 +118,8 @@ const getCentral = async (req, res, next) => {
                     ]
 
                 }
-            ]
+            ],
+            order: [['id', 'ASC']]
         })
         return res.json(result2);
     } catch (e) {
@@ -132,10 +137,11 @@ const renameKey = (object, key, newKey) => {
 
 const getSearchCategory = async (req, res, next) => {
     try {
-        let centralResult = await model.Central.findAll();
-        let collegeResult = await model.College.findAll();
+        let centralResult = await model.Central.findAll({order: [['id', 'ASC']]});
+        let collegeResult = await model.College.findAll({order: [['id', 'ASC']]});
         let majorResult = await model.Major.findAll({
-            attributes: ['id', 'organizationName']
+            attributes: ['id', 'organizationName'],
+            order: [['id', 'ASC']]
         })
 
         centralResult = centralResult.map((res) =>
@@ -148,7 +154,7 @@ const getSearchCategory = async (req, res, next) => {
             return renameKey(res['dataValues'], "organizationName", "name")
         })
 
-        let result = collegeResult.concat(centralResult);
+        let result = centralResult.concat(collegeResult);
         result = result.concat(majorResult);
 
         return res.json(result);
@@ -173,7 +179,7 @@ const getLastBanner = async (req, res, next) => {
 
 const getBanner = async (req, res, next) => {
     try {
-        const banner = await model.Banner.findAll();
+        const banner = await model.Banner.findAll({order: [['id', 'ASC']]});
 
         return res.json(banner);
     } catch (e) {
@@ -228,7 +234,7 @@ const getElection = async (req, res, next) => {
 
         //시작~끝날짜 없는 것
         const query =
-            "select Team.centralId, Team.categoryDetail, count(Team.centralId) as count from Team INNER JOIN Schedule WHERE Team.centralId = Schedule.centralId GROUP BY Team.centralId, Team.categoryDetail, Schedule.startDate, Schedule.endDate;"
+            "select Team.centralId, Team.categoryDetail, count(Team.centralId) as count from Team WHERE Team.centralId is not NULL GROUP BY Team.centralId, Team.categoryDetail;"
 
 
         const results = await model.sequelize.query(query, { type: QueryTypes.SELECT });
@@ -250,14 +256,5 @@ const getType = (data) => {
     )
 }
 
-const getMain = async (req, res, next) => {
-    const a = {
-        ...await getMajor(),
-        ...await getCollege()
-    }
-    console.log(a);
-    return res.json(a);
-}
 
-
-module.exports = {getMajor, getCollege, getCentral, getSearchCategory, getElection, getMain, getBanner, getCalendar}
+module.exports = {getMajor, getCollege, getCentral, getSearchCategory, getElection, getBanner, getCalendar}

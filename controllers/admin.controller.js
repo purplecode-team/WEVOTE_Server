@@ -252,7 +252,7 @@ const registerInfo = async(req, res) => {
 
 const getInfoImgList = async(req, res) => {
     try {
-        const data = await model.ElectionInfo.findAll();
+        const data = await model.ElectionInfo.findAll({order: [['id', 'ASC']]});
         console.log(data);
         return res.json(data);
     }
@@ -405,7 +405,7 @@ const getCandidate = async(req, res, next) => {
                 {
                     model: model.Promises
                 }
-            ],
+            ],order: [['id', 'ASC']]
         });
 
         const candidate = data['dataValues']

@@ -8,7 +8,6 @@ router.get('/college', main.getCollege)
 router.get('/major', main.getMajor)
 router.get('/search', main.getSearchCategory)
 router.get('/election', main.getElection)
-router.get('/main', main.getMain)
 router.get('/banner', main.getBanner)
 router.get('/calendar', main.getCalendar)
 
