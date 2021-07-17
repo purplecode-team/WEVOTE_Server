@@ -252,7 +252,7 @@ const registerInfo = async(req, res) => {
 
 const getInfoImgList = async(req, res) => {
     try {
-        const data = await model.ElectionInfo.findAll();
+        const data = await model.ElectionInfo.findAll({order: [['id', 'ASC']]});
         console.log(data);
         return res.json(data);
     }
@@ -387,22 +387,136 @@ const deleteInfoImg = async(req, res, next) => {
 }
 
 
+const renameOrganizationId = (object, key, newKey) => {
+    object[newKey] = object[key]
+    delete object[key];
+    return object;
+};
+
+const getCandidate = async(req, res, next) => {
+    try {
+        const data =  await model.Team.findOne({
+            where: {id: req.params.id},
+            include: [
+                {
+                    model: model.Runner,
+                    // attributes: ['id', 'name', 'major', 'studentNum', 'position', 'picture', 'teamId']
+                },
+                {
+                    model: model.Promises
+                }
+            ],order: [['id', 'ASC']]
+        });
+
+        const candidate = data['dataValues']
+
+        let newCandidate
+
+        if(candidate.categoryName === '중앙자치기구') {
+            newCandidate = renameOrganizationId(candidate, "centralId", "organizationId")
+            delete newCandidate["collegeId"];
+            delete newCandidate["majorId"];
+        }
+        else if(candidate.categoryName === "단과대") {
+            newCandidate = renameOrganizationId(candidate, "collegeId", "organizationId")
+            delete newCandidate["centralId"];
+            delete newCandidate["majorId"];
+        }
+        else if(candidate.categoryName === "학과") {
+            newCandidate = renameOrganizationId(candidate, "majorId", "organizationId")
+            delete newCandidate["collegeId"];
+            delete newCandidate["centralId"];
+        }
+        else {
+        }
+
+
+
+        console.log(newCandidate);
+
+        return res.json(newCandidate);
+    }
+    catch (e) {
+        console.log(e);
+        throw e;
+    }
+}
+
+
 const registerCandidate = async(req, res, next) => {
     try {
-        const candidate = req.body;
-        console.log(candidate);
+        let candidate = req.body;
+        let newCandidate;
 
-        const teamData = candidate.Teams + candidate.organizationName
+        if(candidate.categoryName === '중앙자치기구') {
+            const central = await model.Central.findOne( {where: {organizationName: candidate.categoryDetail}})
+            candidate["centralId"] = central.id
+        }
+        else if(candidate.categoryName === "단과대") {
+            const college = await model.College.findOne( {where: {organizationName: candidate.categoryDetail}})
+            candidate["collegeId"] = college.id
+        }
+        else if(candidate.categoryName === "학과") {
+            const major = await model.Major.findOne( {where: {organizationName: candidate.categoryDetail}})
+            candidate["majorId"] = major.id
+        }
+        else {
+        }
 
-        console.log(teamData);
-
-        await model.Team.create(teamData);
+        await model.Team.create(candidate, {include : [model.Runner, model.Promises]});
 
         return res.json({"success": true});
-
-    } catch (e) {
+    }
+    catch (e) {
         console.log(e);
     }
 }
 
-module.exports = {getCategory, registerCategory, deleteCentral, deleteMajorCollege, deleteMajor, registerBanner,  deleteBanner, updateBanner, registerCalendar, deleteCalendar, registerInfo, postCalendar, getInfoImgList, deleteInfoImg, registerCandidate}
+const updateCandidate = async(req, res, next) => {
+    try {
+        let candidate = req.body;
+        console.log(candidate)
+        let newCandidate;
+
+        if(candidate.categoryName === '중앙자치기구') {
+            newCandidate = renameOrganizationId(candidate, "organizationId", "centralId")
+        }
+        else if(candidate.categoryName === "단과대") {
+            newCandidate = renameOrganizationId(candidate, "organizationId", "collegeId")
+        }
+        else if(candidate.categoryName === "학과") {
+            newCandidate = renameOrganizationId(candidate, "organizationId", "majorId")
+        }
+        else {
+        }
+        await model.Team.update(newCandidate, { where: {id: req.params.id}});
+        await newCandidate.Runners.forEach(it => {
+            model.Runner.update(it, {where: {id: it.id}})
+        })
+        await newCandidate.Promises.forEach(it => {
+            model.Promises.update(it, {where: {id: it.id}})
+        })
+
+        return res.json({"success": true});
+    }
+    catch (e) {
+        console.log(e);
+    }
+}
+
+const deleteCandidate = async(req, res, next) => {
+    try {
+        await model.Team.destroy({where: {id: req.params.id}})
+        await model.Runner.destroy({where: {teamId: null}})
+        await model.Promises.destroy({where: {teamId: null}})
+
+        return res.json({"success": true})
+    }
+    catch (e) {
+        console.log(e);
+    }
+}
+
+module.exports = {getCategory, registerCategory, deleteCentral, deleteMajorCollege, deleteMajor, registerBanner,
+    deleteBanner, updateBanner, registerCalendar, deleteCalendar, registerInfo, postCalendar, getInfoImgList, deleteInfoImg,
+    getCandidate, registerCandidate, updateCandidate, deleteCandidate}
