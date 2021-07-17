@@ -63,7 +63,7 @@ const getPromise = async (req, res, next) => {
 
         console.log(name);
 
-        const finalData = {"id": id, "name": name, "Teams": data}
+        const finalData = {"id": id, "organizationName": name, "Teams": data}
 
 
         // console.log(data)
