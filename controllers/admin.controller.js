@@ -457,11 +457,14 @@ const registerCandidate = async(req, res, next) => {
             candidate["collegeId"] = college.id
         }
         else if(candidate.categoryName === "학과") {
-            const major = await model.Major.findOne( {where: {organizationName: candidate.categoryDetail}})
+            const major = await model.Major.findOne( {where: {organizationName: candidate.majorName}})
+            console.log(major)
             candidate["majorId"] = major.id
         }
         else {
         }
+
+
 
         await model.Team.create(candidate, {include : [model.Runner, model.Promises]});
 
