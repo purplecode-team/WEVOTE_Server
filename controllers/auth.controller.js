@@ -3,7 +3,7 @@ const passport = require('passport');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-const postJoin = async (req, res, next) => {
+const localJoin = async (req, res, next) => {
     const {userId, password, nickName, status} = req.body;
     try {
         const exUser = await model.User.findOne({where: {userId}});
@@ -30,7 +30,7 @@ const postJoin = async (req, res, next) => {
     }
 }
 
-const postLogin = (req, res, next) => {
+const localLogin = (req, res, next) => {
     passport.authenticate('local', {session: false}, (authError, user, info) => {
         if (authError) {
             console.error(authError);
@@ -70,17 +70,9 @@ const postLogin = (req, res, next) => {
     }) (req, res, next);
 }
 
-const deleteUser1 = async (req, res, next) => {
-    const {userId} = req.body;
-    try {
-        const delUser = await model.User.findOne({where: {userId}});
-        if (!delUser) return res.status(404).json({success: false, message: '해당 userId가 등록되어있지 않습니다.'})
-        await model.User.destroy({where: {userId: userId}})
-        return res.json({success: true, message: '정상적으로 탈퇴되었습니다.'})
-    } catch(e) {
-        console.log(e)
-        return res.json({success: false, message: '탈퇴 오류 발생'})
-    }
+const kakaoLogin = (req, res, next) => {
+    console.log(req.headers);
+    return 0;
 }
 
 const deleteUser = async(req, res, next) => {
@@ -127,4 +119,4 @@ const getLogout = (req, res) => {
 };
 */
 
-module.exports = {postJoin, postLogin, deleteUser}
+module.exports = {localJoin, localLogin, kakaoLogin, deleteUser}
