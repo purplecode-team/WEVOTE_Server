@@ -36,16 +36,8 @@ const getMajor = async (req, res, next) => {
             order: [['id', 'ASC']]
         })
 
-        console.log(result2)
-
-
-        console.log("-------------------========================")
-
         result2 = result2.map(el => el.get({ plain: true }));
 
-        console.log(result2)
-
-        console.log("-------------------========================")
 
 
         // result2.prototype.renameProperty = function (oldName, newName) {
@@ -62,7 +54,6 @@ const getMajor = async (req, res, next) => {
         // };
         // renameProperty("collegeName", "name");
 
-        console.log(result2)
         //
         // const result = result2.map((res) => {
         //     return renameKey(res['dataValues'], "majorName", "name")
@@ -70,10 +61,10 @@ const getMajor = async (req, res, next) => {
         //
         // console.log(result)
 
-
-        return res.json(result2);
+        return result2;
+        //return res.json(result2);
     } catch (e) {
-        console.log("error!!")
+        console.log(e)
     }
 }
 
@@ -96,9 +87,10 @@ const getCollege = async (req, res, next) => {
             ],
             order: [['id', 'ASC']]
         })
-        return res.json(result2);
+        return result2;
+        //return res.json(result2);
     } catch (e) {
-        console.log("error!!")
+        console.log(e)
     }
 }
 
@@ -121,14 +113,54 @@ const getCentral = async (req, res, next) => {
             ],
             order: [['id', 'ASC']]
         })
-        return res.json(result2);
+        console.log(result2);
+        return result2;
+        //return res.json(result2);
     } catch (e) {
-        console.log("error!!")
+        console.log(e)
     }
 }
 
-const renameKeyOfObj = (object) => {
+const getMain = async(req, res, next) => {
+    try {
+        const data = {
+            "central": await getCentral(),
+            "college": await getCollege(),
+            "major": await getMajor()
+        }
 
+        return res.json(data);
+
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+const getCentral1 = async(req, res, next) => {
+    try {
+        const data = await getCentral();
+        return res.json(data);
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+const getCollege1 = async(req, res, next) => {
+    try {
+        const data = await getCollege();
+        return res.json(data);
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+const getMajor1 = async(req, res, next) => {
+    try {
+        const data = await getMajor();
+        return res.json(data);
+    } catch (e) {
+        console.log(e);
+    }
 }
 
 const renameKey = (object, key, newKey) => {
@@ -257,4 +289,4 @@ const getType = (data) => {
 }
 
 
-module.exports = {getMajor, getCollege, getCentral, getSearchCategory, getElection, getBanner, getCalendar}
+module.exports = {getMajor1, getCollege1, getCentral1, getSearchCategory, getElection, getBanner, getCalendar, getMain}
