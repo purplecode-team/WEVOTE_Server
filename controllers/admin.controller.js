@@ -1,3 +1,5 @@
+const moment = require('moment');
+
 const Sequelize = require('sequelize');
 
 const fs = require('fs');
@@ -9,6 +11,10 @@ const multerS3 = require('multer-s3');
 const aws = require('aws-sdk');
 const dotenv = require('dotenv');
 dotenv.config({path: '../.env'})
+
+global.atob = require("atob");
+global.Blob = require('node-blob');
+const File = require('File');
 
 const s3 = new aws.S3({
     accessKeyId: process.env.KEY_ID,
@@ -36,26 +42,28 @@ const getCategory = async (req,res,next) => {
     }
 }
 
-const getCentral = async() => {
+const getCentral = async(next) => {
     try {
         const central = await model.Central.findAll({order: Sequelize.col('id')});
         console.log(JSON.stringify(central));
         return renameKey(central, '중앙자치기구');
     } catch(e) {
-        console.log(e)
+        console.log(e);
+        next.error;
     }
 }
 
-const getCollege = async() => {
+const getCollege = async(next) => {
     try {
         const college = await model.College.findAll({order: Sequelize.col('id')});
         return renameKey(college, '단과대');
     } catch(e) {
-        console.log(e)
+        console.log(e);
+        next.error;
     }
 }
 
-const getMajor = async() => {
+const getMajor = async(next) => {
     try {
         let major = await model.College.findAll({
             attributes: ['organizationName'],
@@ -75,6 +83,7 @@ const getMajor = async() => {
         return major;
     } catch(e) {
         console.log(e)
+        next.error;
     }
 }
 
@@ -166,19 +175,19 @@ const registerBanner = async(req, res, next) => {
 
     } catch (e) {
         console.log(e);
+        return res.status(501).json({success: false, message: "배너 등록 오류"});
     }
 }
 
 const deleteBanner = async(req, res, next) => {
     try {
-        const id = req.params.id;
-
         await model.Banner.destroy({where: {id: req.params.id}})
 
         return res.json({"success": true})
 
     } catch (e) {
         console.log(e);
+        return res.status(402).json({success: false, message: "삭제 오류: id가 존재하지 않음"});
     }
 }
 
@@ -193,6 +202,7 @@ const updateBanner = async (req, res, next) => {
 
     } catch (e) {
         console.log(e);
+        return res.status(501).json({success: false, message: "배너 수정 오류"});
     }
 }
 
@@ -230,7 +240,8 @@ const registerCalendar = async(req, res) => {
             }
         )
     } catch(e) {
-        console.error('업로드 오류')
+        console.error(e)
+        return res.status(501).json({success: false, message: "캘린더 등록 오류"});
     }
 }
 
@@ -246,7 +257,8 @@ const registerInfo = async(req, res) => {
             }
         )
     } catch(e) {
-        console.error('업로드 오류')
+        console.error(e)
+        return res.status(501).json({success: false, message: "사진 등록 오류"});
     }
 }
 
@@ -257,7 +269,8 @@ const getInfoImgList = async(req, res) => {
         return res.json(data);
     }
     catch (e) {
-        console.log(e)
+        console.log(e);
+        return res.status(501).json({success: false, message: "사진 호출 오류"});
     }
 }
 
@@ -320,6 +333,7 @@ const postCalendar = async(req, res, next) => {
         return res.json({"imageUrl": calendarImg.location, "success": true});
     } catch (e) {
         console.log(e);
+        return res.status(501).json({success: false, message: "캘린더 등록 오류"});
     }
 }
 
@@ -351,9 +365,14 @@ const deleteCalendar = async(req, res, next) => {
     //     }
     // })
 
-    await model.Calendar.destroy({where: {id: req.params.id}})
+    try {
+        await model.Calendar.destroy({where: {id: req.params.id}})
+        return res.json({"success": true})
+    } catch (e) {
+        console.log(e);
+        return res.status(402).json({success: false, message: "삭제 오류: id가 존재하지 않음"});
+    }
 
-    return res.json({"success": true})
 }
 
 const deleteInfoImg = async(req, res, next) => {
@@ -438,10 +457,24 @@ const getCandidate = async(req, res, next) => {
     }
     catch (e) {
         console.log(e);
-        throw e;
+        return res.status(501).json({success: false, message: "후보자 호출 오류"});
     }
 }
 
+
+function decodeBase64Image(dataString) {
+    var matches = dataString.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/),
+        response = {};
+
+    if (matches.length !== 3) {
+        return new Error('Invalid input string');
+    }
+
+    response.type = matches[1];
+    response.data = Buffer.from(matches[2], 'base64');
+
+    return response;
+}
 
 const registerCandidate = async(req, res, next) => {
     try {
@@ -464,6 +497,32 @@ const registerCandidate = async(req, res, next) => {
         else {
         }
 
+        const AWS = require('aws-sdk');
+        AWS.config.loadFromPath('s3_config.json');
+        const s3 = new AWS.S3();
+
+
+        candidate.Runners.forEach(it => {
+            const format = it.picture.substring(it.picture.indexOf('data:')+5, it.picture.indexOf(';base64'));
+
+            let imageBuffer = decodeBase64Image(it.picture);
+
+            let fileName = moment.now().toString()+it.major+it.name+"image.jpg"
+
+            s3.upload({
+                Bucket:'gpbucket-bomi/candidate',
+                Key: fileName,
+                Body: imageBuffer.data,
+                ContentEncoding:'base64',
+                ContentType:format
+            }, function(err, data) {
+                if (err) console.log(err, err.stack); // an error occurred
+                else     console.log(data);           // successful response
+            });
+
+            it.picture = "https://gpbucket-bomi.s3.ap-northeast-2.amazonaws.com/candidate/"+fileName;
+
+        })
 
 
         await model.Team.create(candidate, {include : [model.Runner, model.Promises]});
@@ -472,6 +531,7 @@ const registerCandidate = async(req, res, next) => {
     }
     catch (e) {
         console.log(e);
+        return res.status(501).json({success: false, message: "후보자 등록 오류"});
     }
 }
 
@@ -504,6 +564,7 @@ const updateCandidate = async(req, res, next) => {
     }
     catch (e) {
         console.log(e);
+        return res.status(501).json({success: false, message: "후보자 수정 오류"});
     }
 }
 
@@ -517,6 +578,7 @@ const deleteCandidate = async(req, res, next) => {
     }
     catch (e) {
         console.log(e);
+        return res.status(501).json({success: false, message: "후보자 삭제 오류"});
     }
 }
 

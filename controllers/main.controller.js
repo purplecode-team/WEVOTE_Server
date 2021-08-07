@@ -23,7 +23,7 @@ const getMajor = async (req, res, next) => {
                             attributes: ['id', 'order', 'slogan'],
                             include: [
                                 {
-                                    model: model.Runner,
+                                    model: model.Runners,
                                     attributes: ['id', 'name', 'major', 'studentNum', 'position', 'picture', 'teamId']
                                 }
                             ],
@@ -36,16 +36,8 @@ const getMajor = async (req, res, next) => {
             order: [['id', 'ASC']]
         })
 
-        console.log(result2)
-
-
-        console.log("-------------------========================")
-
         result2 = result2.map(el => el.get({ plain: true }));
 
-        console.log(result2)
-
-        console.log("-------------------========================")
 
 
         // result2.prototype.renameProperty = function (oldName, newName) {
@@ -62,7 +54,6 @@ const getMajor = async (req, res, next) => {
         // };
         // renameProperty("collegeName", "name");
 
-        console.log(result2)
         //
         // const result = result2.map((res) => {
         //     return renameKey(res['dataValues'], "majorName", "name")
@@ -70,10 +61,11 @@ const getMajor = async (req, res, next) => {
         //
         // console.log(result)
 
-
-        return res.json(result2);
+        return result2;
+        //return res.json(result2);
     } catch (e) {
-        console.log("error!!")
+        console.log(e);
+        next.error;
     }
 }
 
@@ -96,9 +88,11 @@ const getCollege = async (req, res, next) => {
             ],
             order: [['id', 'ASC']]
         })
-        return res.json(result2);
+        return result2;
+        //return res.json(result2);
     } catch (e) {
-        console.log("error!!")
+        console.log(e);
+        next.error;
     }
 }
 
@@ -115,20 +109,65 @@ const getCentral = async (req, res, next) => {
                             model: model.Runner,
                             attributes: ['id', 'name', 'major', 'studentNum', 'position', 'picture', 'teamId']
                         }
-                    ]
-
+                    ],
+                    order: ['order', 'ASC']
                 }
             ],
             order: [['id', 'ASC']]
         })
-        return res.json(result2);
+        console.log(result2);
+        return result2;
+        //return res.json(result2);
     } catch (e) {
-        console.log("error!!")
+        console.log(e);
+        next.error;
     }
 }
 
-const renameKeyOfObj = (object) => {
+const getMain = async(req, res, next) => {
+    try {
+        const data = {
+            "central": await getCentral(),
+            "college": await getCollege(),
+            "major": await getMajor()
+        }
 
+        return res.json(data);
+
+    } catch (e) {
+        console.log(e);
+        return res.status(501).json({success: false, message: e});
+    }
+}
+
+const getCentral1 = async(req, res, next) => {
+    try {
+        const data = await getCentral();
+        return res.json(data);
+    } catch (e) {
+        console.log(e);
+        return res.status(501).json({success: false, message: "서버 오류"});
+    }
+}
+
+const getCollege1 = async(req, res, next) => {
+    try {
+        const data = await getCollege();
+        return res.json(data);
+    } catch (e) {
+        console.log(e);
+        return res.status(501).json({success: false, message: "서버 오류"});
+    }
+}
+
+const getMajor1 = async(req, res, next) => {
+    try {
+        const data = await getMajor();
+        return res.json(data);
+    } catch (e) {
+        console.log(e);
+        return res.status(501).json({success: false, message: "서버 오류"});
+    }
 }
 
 const renameKey = (object, key, newKey) => {
@@ -159,7 +198,8 @@ const getSearchCategory = async (req, res, next) => {
 
         return res.json(result);
     } catch (e) {
-        console.log(e)
+        console.log(e);
+        return res.status(501).json({success: false, message: "서버 오류"});
     }
 }
 
@@ -174,6 +214,7 @@ const getLastBanner = async (req, res, next) => {
         return res.json(banner);
     } catch (e) {
         console.log(e);
+        return res.status(501).json({success: false, message: "서버 오류"});
     }
 }
 
@@ -184,6 +225,7 @@ const getBanner = async (req, res, next) => {
         return res.json(banner);
     } catch (e) {
         console.log(e);
+        return res.status(501).json({success: false, message: "서버 오류"});
     }
 }
 
@@ -197,6 +239,7 @@ const getCalendar = async (req, res, next) => {
         return res.json(calendar);
     } catch (e) {
         console.log(e);
+        return res.status(501).json({success: false, message: "서버 오류"});
     }
 }
 
@@ -242,7 +285,8 @@ const getElection = async (req, res, next) => {
         return res.json(getType(results));
 
     } catch (e) {
-        console.log(e)
+        console.log(e);
+        return res.status(501).json({success: false, message: "서버 오류"});
     }
 }
 
@@ -257,4 +301,4 @@ const getType = (data) => {
 }
 
 
-module.exports = {getMajor, getCollege, getCentral, getSearchCategory, getElection, getBanner, getCalendar}
+module.exports = {getMajor1, getCollege1, getCentral1, getSearchCategory, getElection, getBanner, getCalendar, getMain}
