@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const postJoin = async (req, res, next) => {
-    const {userId, nickName, password, status} = req.body;
+    const {userId, password, nickName, status} = req.body;
     try {
         const exUser = await model.User.findOne({where: {userId}});
         if (exUser) {
@@ -46,7 +46,9 @@ const postLogin = (req, res, next) => {
             }
             // jwt 토큰
             const token = jwt.sign({
+                id: user.id,
                 userId: user.userId,
+                nickName: user.nickName,
                 status: user.status,
             }, process.env.JWT_SECRET, {
                 expiresIn: '1h',
@@ -57,6 +59,7 @@ const postLogin = (req, res, next) => {
 
             return res.status(200).json({
                 success: true,
+                id: user.id,
                 userId: user.userId,
                 nickName: user.nickName,
                 status: user.status,
@@ -67,7 +70,7 @@ const postLogin = (req, res, next) => {
     }) (req, res, next);
 }
 
-const deleteUser = async (req, res, next) => {
+const deleteUser1 = async (req, res, next) => {
     const {userId} = req.body;
     try {
         const delUser = await model.User.findOne({where: {userId}});
@@ -77,6 +80,19 @@ const deleteUser = async (req, res, next) => {
     } catch(e) {
         console.log(e)
         return res.json({success: false, message: '탈퇴 오류 발생'})
+    }
+}
+
+const deleteUser = async(req, res, next) => {
+    try {
+        const id = req.params.id;
+        const delUser = await model.User.findOne({where: {id}});
+        if (!delUser) return res.status(404).json({success: false, message: '해당 userId가 등록되어있지 않습니다.'})
+        await model.User.destroy({where: {id: id}})
+        return res.json({success: true, message: '정상적으로 탈퇴되었습니다.'})
+    } catch (e) {
+        console.log(e);
+        return res.status(505).json({success: false, message: '탈퇴 오류 발생'})
     }
 }
 
