@@ -22,10 +22,11 @@ module.exports = () => {
                     snsId: profile.id,
                     provider: 'kakao',
                 });
-                done(null, newUser);
+                done(null, newUser, {message: '가입 성공'});
             }
         } catch (e) {
             console.error(e);
+            console.log('등록 실패!')
             done(e);
         }
     }));
