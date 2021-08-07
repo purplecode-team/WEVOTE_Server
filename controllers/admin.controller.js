@@ -10,6 +10,10 @@ const aws = require('aws-sdk');
 const dotenv = require('dotenv');
 dotenv.config({path: '../.env'})
 
+global.atob = require("atob");
+global.Blob = require('node-blob');
+const File = require('File');
+
 const s3 = new aws.S3({
     accessKeyId: process.env.KEY_ID,
     secretAccessKey: process.env.SECRET_KEY,
@@ -442,6 +446,33 @@ const getCandidate = async(req, res, next) => {
     }
 }
 
+const uploadCandidateImage = multer({
+    storage: multerS3({
+        s3: s3,
+        bucket: 'gpbucket-bomi/candidate',
+        contentType: multerS3.AUTO_CONTENT_TYPE,
+        acl: 'public-read-write',
+        key: function(req, file, cb) {
+            let extension = path.extname(file.originalname);
+            cb(null, Date.now().toString() + extension)
+        }
+    })
+});
+
+
+function decodeBase64Image(dataString) {
+    var matches = dataString.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/),
+        response = {};
+
+    if (matches.length !== 3) {
+        return new Error('Invalid input string');
+    }
+
+    response.type = matches[1];
+    response.data = Buffer.from(matches[2], 'base64');
+
+    return response;
+}
 
 const registerCandidate = async(req, res, next) => {
     try {
@@ -464,6 +495,30 @@ const registerCandidate = async(req, res, next) => {
         else {
         }
 
+        const AWS = require('aws-sdk');
+        AWS.config.loadFromPath('s3_config.json');
+        const s3 = new AWS.S3();
+
+
+        candidate.Runners.forEach(it => {
+            const format = it.picture.substring(it.picture.indexOf('data:')+5, it.picture.indexOf(';base64'));
+
+            let imageBuffer = decodeBase64Image(it.picture);
+
+            let fileName = it.major+it.name+"image.jpg"
+
+            s3.upload({
+                Bucket:'gpbucket-bomi/candidate',
+                Key: fileName,
+                Body: imageBuffer.data,
+                ContentEncoding:'base64',
+                ContentType:format
+            }, function(err, data) {
+                if (err) console.log(err, err.stack); // an error occurred
+                else     console.log(data);           // successful response
+            });
+
+        })
 
 
         await model.Team.create(candidate, {include : [model.Runner, model.Promises]});
