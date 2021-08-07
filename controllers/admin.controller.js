@@ -42,26 +42,28 @@ const getCategory = async (req,res,next) => {
     }
 }
 
-const getCentral = async() => {
+const getCentral = async(next) => {
     try {
         const central = await model.Central.findAll({order: Sequelize.col('id')});
         console.log(JSON.stringify(central));
         return renameKey(central, '중앙자치기구');
     } catch(e) {
-        console.log(e)
+        console.log(e);
+        next.error;
     }
 }
 
-const getCollege = async() => {
+const getCollege = async(next) => {
     try {
         const college = await model.College.findAll({order: Sequelize.col('id')});
         return renameKey(college, '단과대');
     } catch(e) {
-        console.log(e)
+        console.log(e);
+        next.error;
     }
 }
 
-const getMajor = async() => {
+const getMajor = async(next) => {
     try {
         let major = await model.College.findAll({
             attributes: ['organizationName'],
@@ -81,6 +83,7 @@ const getMajor = async() => {
         return major;
     } catch(e) {
         console.log(e)
+        next.error;
     }
 }
 
@@ -172,19 +175,19 @@ const registerBanner = async(req, res, next) => {
 
     } catch (e) {
         console.log(e);
+        return res.status(501).json({success: false, message: "배너 등록 오류"});
     }
 }
 
 const deleteBanner = async(req, res, next) => {
     try {
-        const id = req.params.id;
-
         await model.Banner.destroy({where: {id: req.params.id}})
 
         return res.json({"success": true})
 
     } catch (e) {
         console.log(e);
+        return res.status(402).json({success: false, message: "삭제 오류: id가 존재하지 않음"});
     }
 }
 
@@ -199,6 +202,7 @@ const updateBanner = async (req, res, next) => {
 
     } catch (e) {
         console.log(e);
+        return res.status(501).json({success: false, message: "배너 수정 오류"});
     }
 }
 
@@ -236,7 +240,8 @@ const registerCalendar = async(req, res) => {
             }
         )
     } catch(e) {
-        console.error('업로드 오류')
+        console.error(e)
+        return res.status(501).json({success: false, message: "캘린더 등록 오류"});
     }
 }
 
@@ -252,7 +257,8 @@ const registerInfo = async(req, res) => {
             }
         )
     } catch(e) {
-        console.error('업로드 오류')
+        console.error(e)
+        return res.status(501).json({success: false, message: "사진 등록 오류"});
     }
 }
 
@@ -263,7 +269,8 @@ const getInfoImgList = async(req, res) => {
         return res.json(data);
     }
     catch (e) {
-        console.log(e)
+        console.log(e);
+        return res.status(501).json({success: false, message: "사진 호출 오류"});
     }
 }
 
@@ -326,6 +333,7 @@ const postCalendar = async(req, res, next) => {
         return res.json({"imageUrl": calendarImg.location, "success": true});
     } catch (e) {
         console.log(e);
+        return res.status(501).json({success: false, message: "캘린더 등록 오류"});
     }
 }
 
@@ -357,9 +365,14 @@ const deleteCalendar = async(req, res, next) => {
     //     }
     // })
 
-    await model.Calendar.destroy({where: {id: req.params.id}})
+    try {
+        await model.Calendar.destroy({where: {id: req.params.id}})
+        return res.json({"success": true})
+    } catch (e) {
+        console.log(e);
+        return res.status(402).json({success: false, message: "삭제 오류: id가 존재하지 않음"});
+    }
 
-    return res.json({"success": true})
 }
 
 const deleteInfoImg = async(req, res, next) => {
@@ -444,7 +457,7 @@ const getCandidate = async(req, res, next) => {
     }
     catch (e) {
         console.log(e);
-        throw e;
+        return res.status(501).json({success: false, message: "후보자 호출 오류"});
     }
 }
 
@@ -518,6 +531,7 @@ const registerCandidate = async(req, res, next) => {
     }
     catch (e) {
         console.log(e);
+        return res.status(501).json({success: false, message: "후보자 등록 오류"});
     }
 }
 
@@ -550,6 +564,7 @@ const updateCandidate = async(req, res, next) => {
     }
     catch (e) {
         console.log(e);
+        return res.status(501).json({success: false, message: "후보자 수정 오류"});
     }
 }
 
@@ -563,6 +578,7 @@ const deleteCandidate = async(req, res, next) => {
     }
     catch (e) {
         console.log(e);
+        return res.status(501).json({success: false, message: "후보자 삭제 오류"});
     }
 }
 

@@ -71,6 +71,7 @@ const getPromise = async (req, res, next) => {
         return res.json(finalData);
     } catch (e) {
         console.log("error!!")
+        return res.status(501).json({success: false, message: "공약 정보 호출 오류"});
     }
 }
 
