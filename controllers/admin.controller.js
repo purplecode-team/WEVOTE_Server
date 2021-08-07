@@ -1,3 +1,5 @@
+const moment = require('moment');
+
 const Sequelize = require('sequelize');
 
 const fs = require('fs');
@@ -446,19 +448,6 @@ const getCandidate = async(req, res, next) => {
     }
 }
 
-const uploadCandidateImage = multer({
-    storage: multerS3({
-        s3: s3,
-        bucket: 'gpbucket-bomi/candidate',
-        contentType: multerS3.AUTO_CONTENT_TYPE,
-        acl: 'public-read-write',
-        key: function(req, file, cb) {
-            let extension = path.extname(file.originalname);
-            cb(null, Date.now().toString() + extension)
-        }
-    })
-});
-
 
 function decodeBase64Image(dataString) {
     var matches = dataString.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/),
@@ -505,7 +494,7 @@ const registerCandidate = async(req, res, next) => {
 
             let imageBuffer = decodeBase64Image(it.picture);
 
-            let fileName = it.major+it.name+"image.jpg"
+            let fileName = moment.now().toString()+it.major+it.name+"image.jpg"
 
             s3.upload({
                 Bucket:'gpbucket-bomi/candidate',
@@ -517,6 +506,8 @@ const registerCandidate = async(req, res, next) => {
                 if (err) console.log(err, err.stack); // an error occurred
                 else     console.log(data);           // successful response
             });
+
+            it.picture = "https://gpbucket-bomi.s3.ap-northeast-2.amazonaws.com/candidate/"+fileName;
 
         })
 
