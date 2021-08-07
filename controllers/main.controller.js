@@ -23,7 +23,7 @@ const getMajor = async (req, res, next) => {
                             attributes: ['id', 'order', 'slogan'],
                             include: [
                                 {
-                                    model: model.Runners,
+                                    model: model.Runner,
                                     attributes: ['id', 'name', 'major', 'studentNum', 'position', 'picture', 'teamId']
                                 }
                             ],
