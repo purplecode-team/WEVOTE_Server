@@ -2,8 +2,9 @@ const model = require("../models")
 const passport = require('passport');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const request = require('request');
 
-const postJoin = async (req, res, next) => {
+const localJoin = async (req, res, next) => {
     const {userId, password, nickName, status} = req.body;
     try {
         const exUser = await model.User.findOne({where: {userId}});
@@ -30,7 +31,7 @@ const postJoin = async (req, res, next) => {
     }
 }
 
-const postLogin = (req, res, next) => {
+const localLogin = (req, res, next) => {
     passport.authenticate('local', {session: false}, (authError, user, info) => {
         if (authError) {
             console.error(authError);
@@ -70,17 +71,53 @@ const postLogin = (req, res, next) => {
     }) (req, res, next);
 }
 
-const deleteUser1 = async (req, res, next) => {
-    const {userId} = req.body;
-    try {
-        const delUser = await model.User.findOne({where: {userId}});
-        if (!delUser) return res.status(404).json({success: false, message: '해당 userId가 등록되어있지 않습니다.'})
-        await model.User.destroy({where: {userId: userId}})
-        return res.json({success: true, message: '정상적으로 탈퇴되었습니다.'})
-    } catch(e) {
-        console.log(e)
-        return res.json({success: false, message: '탈퇴 오류 발생'})
-    }
+const kakaoLogin = async (req, res, next) => {
+    await request({
+        method: "GET",
+        headers: {'Authorization': "Bearer " + req.headers.authorization},
+        uri: 'https://kapi.kakao.com/v2/user/me'
+    }, async function (error, response, body) {
+        if (error) {
+            res.status(504).json({success: false, message: '카카오 access-token 인증 오류'})
+        }
+        else {
+            try {
+                const profile = JSON.parse(body);
+                //console.log('카카오 인증 완료')
+                const exUser = await model.User.findOne({
+                    where: {snsId: profile.id, provider: 'kakao'},
+                });
+                if (!exUser) {
+                    await model.User.create({
+                        userId: profile.kakao_account.email,
+                        nickName: profile.kakao_account.profile.nickname,
+                        snsId: profile.id,
+                        provider: 'kakao',
+                    });
+                }
+                //console.log('등록 완료')
+                const token = jwt.sign({
+                    id: profile.id,
+                    userId: profile.kakao_account.email,
+                    nickName: profile.kakao_account.profile.nickname,
+                    status: 'local',
+                }, process.env.JWT_SECRET, {
+                    expiresIn: '1h',
+                    issuer: 'wevote',
+                });
+                //console.log('토큰 발급 및 리턴 완료')
+                return res.status(200).json({
+                    userId: profile.kakao_account.email,
+                    nickName: profile.kakao_account.profile.nickname,
+                    status: 'local',
+                    message: '카카오 로그인에 성공하였습니다.',
+                    token
+                })
+            } catch (e) {
+                res.status(505).json({success: false, message: '서버 등록 오류'})
+            }
+        }
+    })
 }
 
 const deleteUser = async(req, res, next) => {
@@ -127,4 +164,4 @@ const getLogout = (req, res) => {
 };
 */
 
-module.exports = {postJoin, postLogin, deleteUser}
+module.exports = {localJoin, localLogin, kakaoLogin, deleteUser}
