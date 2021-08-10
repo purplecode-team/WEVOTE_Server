@@ -35,10 +35,14 @@ const getCategory = async (req,res,next) => {
         const central = [await getCentral()];
         const college = [await getCollege()];
         const major = [await getMajor()];
-        return res.json(central.concat(college).concat(major));
+        if (central || college || major) {
+            return res.status(501);
+        } else {
+            return res.json(central.concat(college).concat(major));
+        }
     } catch(e) {
         console.log(e)
-        return res.status(501).json({success: false, message: "카테고리 호출 서버 오류"})
+        return res.status(501).json({success: false, message: "카테고리 호출 서버 오류"});
     }
 }
 
