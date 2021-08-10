@@ -19,5 +19,6 @@ router.get('/candidate/:id', admin.getCandidate);
 router.post('/candidate', admin.registerCandidate);
 router.patch('/candidate/:id', admin.updateCandidate);
 router.delete('/candidate/:id', admin.deleteCandidate);
+router.get('/major', admin.getMajorList)
 
 module.exports = router;

@@ -582,6 +582,19 @@ const deleteCandidate = async(req, res, next) => {
     }
 }
 
+const getMajorList = async (req,res,next) => {
+    try {
+        const majorObj = await model.Major.findAll({
+            attributes: ['organizationName'],
+            order: Sequelize.col('collegeId')
+        });
+        const majorList = majorObj.map(major => major.organizationName);
+        return res.status(200).json({'major': majorList});
+    } catch(e) {
+        console.log(e)
+    }
+}
+
 module.exports = {getCategory, registerCategory, deleteCentral, deleteMajorCollege, deleteMajor, registerBanner,
     deleteBanner, updateBanner, registerCalendar, deleteCalendar, registerInfo, postCalendar, getInfoImgList, deleteInfoImg,
-    getCandidate, registerCandidate, updateCandidate, deleteCandidate}
+    getCandidate, registerCandidate, updateCandidate, deleteCandidate, getMajorList}
