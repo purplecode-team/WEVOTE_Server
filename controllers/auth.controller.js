@@ -83,7 +83,7 @@ const kakaoLogin = async (req, res, next) => {
         else {
             try {
                 const profile = JSON.parse(body);
-
+                //console.log('카카오 인증 완료')
                 const exUser = await model.User.findOne({
                     where: {snsId: profile.id, provider: 'kakao'},
                 });
@@ -95,7 +95,7 @@ const kakaoLogin = async (req, res, next) => {
                         provider: 'kakao',
                     });
                 }
-
+                //console.log('등록 완료')
                 const token = jwt.sign({
                     id: profile.id,
                     userId: profile.kakao_account.email,
@@ -105,10 +105,8 @@ const kakaoLogin = async (req, res, next) => {
                     expiresIn: '1h',
                     issuer: 'wevote',
                 });
-
+                //console.log('토큰 발급 및 리턴 완료')
                 return res.status(200).json({
-                    success: true,
-                    id: profile.id,
                     userId: profile.kakao_account.email,
                     nickName: profile.kakao_account.profile.nickname,
                     status: 'local',
