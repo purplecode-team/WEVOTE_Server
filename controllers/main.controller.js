@@ -64,8 +64,7 @@ const getMajor = async (req, res, next) => {
         return result2;
         //return res.json(result2);
     } catch (e) {
-        console.log(e);
-        next.error;
+        throw 'major err';
     }
 }
 
@@ -91,8 +90,7 @@ const getCollege = async (req, res, next) => {
         return result2;
         //return res.json(result2);
     } catch (e) {
-        console.log(e);
-        next.error;
+        throw 'college err';
     }
 }
 
@@ -119,8 +117,7 @@ const getCentral = async (req, res, next) => {
         return result2;
         //return res.json(result2);
     } catch (e) {
-        console.log(e);
-        next.error;
+        throw 'central err';
     }
 }
 
@@ -130,13 +127,21 @@ const getMain = async(req, res, next) => {
             "central": await getCentral(),
             "college": await getCollege(),
             "major": await getMajor()
-        }
-
+        };
         return res.json(data);
-
     } catch (e) {
-        console.log(e);
-        return res.status(501).json({success: false, message: e});
+        if (e==='central err') {
+            return res.status(501).send('중앙자치기구 정보 불러오기 오류');
+        }
+        else if (e==='college err') {
+            return res.status(501).send('단과대 정보 불러오기 오류');
+        }
+        else if (e==='major err') {
+            return res.status(501).send('학과 정보 불러오기 오류');
+        }
+        else {
+            return res.status(500).send('서버 오류');
+        }
     }
 }
 
@@ -145,8 +150,11 @@ const getCentral1 = async(req, res, next) => {
         const data = await getCentral();
         return res.json(data);
     } catch (e) {
-        console.log(e);
-        return res.status(501).json({success: false, message: "서버 오류"});
+        if (e==='central err') {
+            return res.status(501).send('중앙자치기구 정보 불러오기 오류');
+        } else {
+            return res.status(500).send('서버 오류');
+        }
     }
 }
 
@@ -155,8 +163,11 @@ const getCollege1 = async(req, res, next) => {
         const data = await getCollege();
         return res.json(data);
     } catch (e) {
-        console.log(e);
-        return res.status(501).json({success: false, message: "서버 오류"});
+        if (e==='college err') {
+            return res.status(501).send('단과대 정보 불러오기 오류');
+        } else {
+            return res.status(500).send('서버 오류');
+        }
     }
 }
 
@@ -165,8 +176,11 @@ const getMajor1 = async(req, res, next) => {
         const data = await getMajor();
         return res.json(data);
     } catch (e) {
-        console.log(e);
-        return res.status(501).json({success: false, message: "서버 오류"});
+        if (e==='major err') {
+            return res.status(501).send('학과 정보 불러오기 오류');
+        } else {
+            return res.status(500).send('서버 오류');
+        }
     }
 }
 
@@ -199,7 +213,7 @@ const getSearchCategory = async (req, res, next) => {
         return res.json(result);
     } catch (e) {
         console.log(e);
-        return res.status(501).json({success: false, message: "서버 오류"});
+        return res.status(501).send('서버 오류');
     }
 }
 
@@ -214,7 +228,7 @@ const getLastBanner = async (req, res, next) => {
         return res.json(banner);
     } catch (e) {
         console.log(e);
-        return res.status(501).json({success: false, message: "서버 오류"});
+        return res.status(501).send('서버 오류');
     }
 }
 
@@ -225,7 +239,7 @@ const getBanner = async (req, res, next) => {
         return res.json(banner);
     } catch (e) {
         console.log(e);
-        return res.status(501).json({success: false, message: "서버 오류"});
+        return res.status(501).send('서버 오류');
     }
 }
 
@@ -239,7 +253,7 @@ const getCalendar = async (req, res, next) => {
         return res.json(calendar);
     } catch (e) {
         console.log(e);
-        return res.status(501).json({success: false, message: "서버 오류"});
+        return res.status(501).send('서버 오류');
     }
 }
 
@@ -286,12 +300,11 @@ const getElection = async (req, res, next) => {
 
     } catch (e) {
         console.log(e);
-        return res.status(501).json({success: false, message: "서버 오류"});
+        return res.status(501).send('서버 오류');
     }
 }
 
 const getType = (data) => {
-
     return data.map(
         (column) => {
             return {'id': column['centralId'], 'name': column['categoryDetail'], 'numOfTeam': column['count'],
