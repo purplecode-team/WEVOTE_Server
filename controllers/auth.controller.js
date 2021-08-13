@@ -18,7 +18,7 @@ const localJoin = async (req, res, next) => {
                 password: hash,
                 status
             });
-            return res.status(200).json({
+            return res.status(201).json({
                 userId: userId,
                 nickName: nickName,
                 status: status
@@ -55,7 +55,7 @@ const localLogin = (req, res, next) => {
 
             // res.cookie('user', token);
 
-            return res.status(200)
+            return res.status(201)
                 .header({'Authorization': token})
                 .json({
                 userId: user.userId,
@@ -122,8 +122,8 @@ const deleteUser = async(req, res, next) => {
         if (!delUser) {
             return res.status(409).send('등록되어 있지 않은 사용자입니다.');
         }
-        await model.User.destroy({where: {id: id}})
-        return res.status(200).send('정상적으로 탈퇴처리 되었습니다.')
+        await model.User.destroy({where: {id: id}});
+        return res.status(204).end();
     } catch (e) {
         return res.status(501).send('서버 오류');
     }

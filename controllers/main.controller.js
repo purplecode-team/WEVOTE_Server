@@ -128,7 +128,7 @@ const getMain = async(req, res, next) => {
             "college": await getCollege(),
             "major": await getMajor()
         };
-        return res.json(data);
+        return res.status(200).json(data);
     } catch (e) {
         if (e==='central err') {
             return res.status(501).send('중앙자치기구 정보 불러오기 오류');
@@ -148,7 +148,7 @@ const getMain = async(req, res, next) => {
 const getCentral1 = async(req, res, next) => {
     try {
         const data = await getCentral();
-        return res.json(data);
+        return res.status(200).json(data);
     } catch (e) {
         if (e==='central err') {
             return res.status(501).send('중앙자치기구 정보 불러오기 오류');
@@ -161,7 +161,7 @@ const getCentral1 = async(req, res, next) => {
 const getCollege1 = async(req, res, next) => {
     try {
         const data = await getCollege();
-        return res.json(data);
+        return res.status(200).json(data);
     } catch (e) {
         if (e==='college err') {
             return res.status(501).send('단과대 정보 불러오기 오류');
@@ -174,7 +174,7 @@ const getCollege1 = async(req, res, next) => {
 const getMajor1 = async(req, res, next) => {
     try {
         const data = await getMajor();
-        return res.json(data);
+        return res.status(200).json(data);
     } catch (e) {
         if (e==='major err') {
             return res.status(501).send('학과 정보 불러오기 오류');
@@ -210,7 +210,7 @@ const getSearchCategory = async (req, res, next) => {
         let result = centralResult.concat(collegeResult);
         result = result.concat(majorResult);
 
-        return res.json(result);
+        return res.status(200).json(result);
     } catch (e) {
         console.log(e);
         return res.status(501).send('서버 오류');
@@ -225,7 +225,7 @@ const getLastBanner = async (req, res, next) => {
             }
         );
 
-        return res.json(banner);
+        return res.status(200).json(banner);
     } catch (e) {
         console.log(e);
         return res.status(501).send('서버 오류');
@@ -236,7 +236,7 @@ const getBanner = async (req, res, next) => {
     try {
         const banner = await model.Banner.findAll({order: [['id', 'ASC']]});
 
-        return res.json(banner);
+        return res.status(200).json(banner);
     } catch (e) {
         console.log(e);
         return res.status(501).send('서버 오류');
@@ -250,7 +250,7 @@ const getCalendar = async (req, res, next) => {
             }
         );
 
-        return res.json(calendar);
+        return res.status(200).json(calendar);
     } catch (e) {
         console.log(e);
         return res.status(501).send('서버 오류');
@@ -296,7 +296,7 @@ const getElection = async (req, res, next) => {
 
         const results = await model.sequelize.query(query, { type: QueryTypes.SELECT });
 
-        return res.json(getType(results));
+        return res.status(200).json(getType(results));
 
     } catch (e) {
         console.log(e);
