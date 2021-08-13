@@ -35,10 +35,10 @@ const getCategory = async (req,res,next) => {
         const central = [await getCentral()];
         const college = [await getCollege()];
         const major = [await getMajor()];
-        if (central || college || major) {
-            return res.status(501);
-        } else {
+        if (central || college) {
             return res.json(central.concat(college).concat(major));
+        } else {
+            return res.status(501).send('null');
         }
     } catch(e) {
         console.log(e)
