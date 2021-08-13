@@ -213,7 +213,7 @@ const getSearchCategory = async (req, res, next) => {
         return res.status(200).json(result);
     } catch (e) {
         console.log(e);
-        return res.status(501).send('서버 오류');
+        return res.status(501).send('검색 오류');
     }
 }
 
@@ -239,7 +239,7 @@ const getBanner = async (req, res, next) => {
         return res.status(200).json(banner);
     } catch (e) {
         console.log(e);
-        return res.status(501).send('서버 오류');
+        return res.status(501).send('배너 불러오기 오류');
     }
 }
 
@@ -253,7 +253,7 @@ const getCalendar = async (req, res, next) => {
         return res.status(200).json(calendar);
     } catch (e) {
         console.log(e);
-        return res.status(501).send('서버 오류');
+        return res.status(501).send('캘린더 불러오기 오류');
     }
 }
 
@@ -300,7 +300,7 @@ const getElection = async (req, res, next) => {
 
     } catch (e) {
         console.log(e);
-        return res.status(501).send('서버 오류');
+        return res.status(501).send('선거정보 불러오기 오류');
     }
 }
 
