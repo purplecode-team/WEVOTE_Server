@@ -58,14 +58,12 @@ const localLogin = (req, res, next) => {
 
             // res.cookie('user', token);
 
-            return res.status(200).json({
-                success: true,
-                id: user.id,
+            return res.status(200)
+                .header({'Authorization': token})
+                .json({
                 userId: user.userId,
                 nickName: user.nickName,
                 status: user.status,
-                message: '로그인에 성공하였습니다.',
-                token
             })
         });
     }) (req, res, next);
@@ -106,12 +104,12 @@ const kakaoLogin = async (req, res, next) => {
                     issuer: 'wevote',
                 });
                 //console.log('토큰 발급 및 리턴 완료')
-                return res.status(200).json({
+                return res.status(200)
+                    .header({'Authorization': token})
+                    .json({
                     userId: profile.kakao_account.email,
                     nickName: profile.kakao_account.profile.nickname,
-                    status: 'local',
-                    message: '카카오 로그인에 성공하였습니다.',
-                    token
+                    status: 'user',
                 })
             } catch (e) {
                 res.status(505).json({success: false, message: '서버 등록 오류'})
