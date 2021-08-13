@@ -112,14 +112,11 @@ dotenv.config();
 const mainRouter = require('./routes/main');
 const promiseRouter = require('./routes/promise');
 const adminRouter = require('./routes/admin');
-const v1Router = require('./routes/v1.0.0');
 const authRouter = require('./routes/auth');
 const { sequelize } = require('./models');
 const logger = require('./logger');
 const passportConfig = require('./passport');
 const app = express();
-
-const { verifyToken, verifyAdmin } = require('./routes/middlewares');
 
 passportConfig(); // 패스포트 설정
 app.set('port', process.env.PORT || 8080);
@@ -173,16 +170,12 @@ if (process.env.NODE_ENV === 'production') {
 }
 app.use(session(sessionOption));
 
-// app.use(passport.initialize());
-// app.use(passport.session());
-
 app.use(passport.initialize());
 app.use(passport.session());
 app.use('/api/v1/main', mainRouter);
 app.use('/api/v1/promise', promiseRouter);
 // app.use('/api/v1/admin', verifyToken, verifyAdmin, adminRouter);
 app.use('/api/v1/admin', adminRouter);
-app.use('/api/v1/v1.0.0', v1Router)
 app.use('/api/v1/auth', authRouter);
 
 app.use((req, res, next) => {
