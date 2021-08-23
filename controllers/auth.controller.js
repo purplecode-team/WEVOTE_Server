@@ -18,11 +18,7 @@ const localJoin = async (req, res, next) => {
                 password: hash,
                 status
             });
-            return res.status(201).json({
-                userId: userId,
-                nickName: nickName,
-                status: status
-            });
+            return res.status(204).end();
         }
     } catch (e) {
         return res.status(501).send('서버 오류');
