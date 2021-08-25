@@ -68,10 +68,9 @@ const getPromise = async (req, res, next) => {
 
         // console.log(data)
 
-        return res.json(finalData);
+        return res.status(200).json(finalData);
     } catch (e) {
-        console.log("error!!")
-        return res.status(501).json({success: false, message: "공약 정보 호출 오류"});
+        return res.status(501).send('공약 불러오기 오류');
     }
 }
 
@@ -85,11 +84,11 @@ const postPromiseQna = async(req, res, next) => {
             type: type,
         })
 
-        return res.status(200).json({success: true, message: '댓글 저장에 성공했습니다.'});
+        return res.status(204).end();
 
     } catch (e) {
         console.log(e)
-        return res.status(500).json({success: false, message: e})
+        return res.status(501).send('QnA 등록 오류');
     }
 }
 

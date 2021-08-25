@@ -9,7 +9,7 @@ const localJoin = async (req, res, next) => {
     try {
         const exUser = await model.User.findOne({where: {userId}});
         if (exUser) {
-            return res.status(400).json({success: false, message: '이미 존재하는 아이디입니다.'});
+            return res.status(409).send('중복된 사용자 정보');
         } else {
             const hash = await bcrypt.hash(password, 12);
             await model.User.create({
@@ -18,18 +18,11 @@ const localJoin = async (req, res, next) => {
                 password: hash,
                 status
             });
-            return res.status(200).json({
-                success: true,
-                userId: userId,
-                nickName: nickName,
-                status: status,
-                message: '아이디가 성공적으로 등록되었습니다.'});
+            return res.status(204).end();
         }
     } catch (e) {
-        console.log("error!!");
-        return next(e);
-    }
-}
+        return res.status(501).send('서버 오류');
+}}
 
 const localLogin = (req, res, next) => {
     passport.authenticate('local', {session: false}, (authError, user, info) => {
@@ -58,7 +51,7 @@ const localLogin = (req, res, next) => {
 
             // res.cookie('user', token);
 
-            return res.status(200)
+            return res.status(201)
                 .header({'Authorization': token})
                 .json({
                 userId: user.userId,
@@ -76,7 +69,7 @@ const kakaoLogin = async (req, res, next) => {
         uri: 'https://kapi.kakao.com/v2/user/me'
     }, async function (error, response, body) {
         if (error) {
-            res.status(504).json({success: false, message: '카카오 access-token 인증 오류'})
+            return res.status(403).send('카카오 access-token 인증 오류');
         }
         else {
             try {
@@ -112,7 +105,7 @@ const kakaoLogin = async (req, res, next) => {
                     status: 'user',
                 })
             } catch (e) {
-                res.status(505).json({success: false, message: '서버 등록 오류'})
+                return res.status(501).send('서버 오류');
             }
         }
     })
@@ -122,12 +115,13 @@ const deleteUser = async(req, res, next) => {
     try {
         const id = req.params.id;
         const delUser = await model.User.findOne({where: {id}});
-        if (!delUser) return res.status(404).json({success: false, message: '해당 userId가 등록되어있지 않습니다.'})
-        await model.User.destroy({where: {id: id}})
-        return res.json({success: true, message: '정상적으로 탈퇴되었습니다.'})
+        if (!delUser) {
+            return res.status(409).send('등록되어 있지 않은 사용자입니다.');
+        }
+        await model.User.destroy({where: {id: id}});
+        return res.status(204).end();
     } catch (e) {
-        console.log(e);
-        return res.status(505).json({success: false, message: '탈퇴 오류 발생'})
+        return res.status(501).send('서버 오류');
     }
 }
 

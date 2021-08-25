@@ -64,8 +64,7 @@ const getMajor = async (req, res, next) => {
         return result2;
         //return res.json(result2);
     } catch (e) {
-        console.log(e);
-        next.error;
+        throw 'major err';
     }
 }
 
@@ -91,8 +90,7 @@ const getCollege = async (req, res, next) => {
         return result2;
         //return res.json(result2);
     } catch (e) {
-        console.log(e);
-        next.error;
+        throw 'college err';
     }
 }
 
@@ -119,8 +117,7 @@ const getCentral = async (req, res, next) => {
         return result2;
         //return res.json(result2);
     } catch (e) {
-        console.log(e);
-        next.error;
+        throw 'central err';
     }
 }
 
@@ -130,43 +127,60 @@ const getMain = async(req, res, next) => {
             "central": await getCentral(),
             "college": await getCollege(),
             "major": await getMajor()
-        }
-
-        return res.json(data);
-
+        };
+        return res.status(200).json(data);
     } catch (e) {
-        console.log(e);
-        return res.status(501).json({success: false, message: e});
+        if (e==='central err') {
+            return res.status(501).send('중앙자치기구 정보 불러오기 오류');
+        }
+        else if (e==='college err') {
+            return res.status(501).send('단과대 정보 불러오기 오류');
+        }
+        else if (e==='major err') {
+            return res.status(501).send('학과 정보 불러오기 오류');
+        }
+        else {
+            return res.status(500).send('서버 오류');
+        }
     }
 }
 
 const getCentral1 = async(req, res, next) => {
     try {
         const data = await getCentral();
-        return res.json(data);
+        return res.status(200).json(data);
     } catch (e) {
-        console.log(e);
-        return res.status(501).json({success: false, message: "서버 오류"});
+        if (e==='central err') {
+            return res.status(501).send('중앙자치기구 정보 불러오기 오류');
+        } else {
+            return res.status(500).send('서버 오류');
+        }
     }
 }
 
 const getCollege1 = async(req, res, next) => {
     try {
         const data = await getCollege();
-        return res.json(data);
+        return res.status(200).json(data);
     } catch (e) {
-        console.log(e);
-        return res.status(501).json({success: false, message: "서버 오류"});
+        if (e==='college err') {
+            return res.status(501).send('단과대 정보 불러오기 오류');
+        } else {
+            return res.status(500).send('서버 오류');
+        }
     }
 }
 
 const getMajor1 = async(req, res, next) => {
     try {
         const data = await getMajor();
-        return res.json(data);
+        return res.status(200).json(data);
     } catch (e) {
-        console.log(e);
-        return res.status(501).json({success: false, message: "서버 오류"});
+        if (e==='major err') {
+            return res.status(501).send('학과 정보 불러오기 오류');
+        } else {
+            return res.status(500).send('서버 오류');
+        }
     }
 }
 
@@ -196,10 +210,10 @@ const getSearchCategory = async (req, res, next) => {
         let result = centralResult.concat(collegeResult);
         result = result.concat(majorResult);
 
-        return res.json(result);
+        return res.status(200).json(result);
     } catch (e) {
         console.log(e);
-        return res.status(501).json({success: false, message: "서버 오류"});
+        return res.status(501).send('검색 오류');
     }
 }
 
@@ -211,10 +225,10 @@ const getLastBanner = async (req, res, next) => {
             }
         );
 
-        return res.json(banner);
+        return res.status(200).json(banner);
     } catch (e) {
         console.log(e);
-        return res.status(501).json({success: false, message: "서버 오류"});
+        return res.status(501).send('서버 오류');
     }
 }
 
@@ -222,10 +236,10 @@ const getBanner = async (req, res, next) => {
     try {
         const banner = await model.Banner.findAll({order: [['id', 'ASC']]});
 
-        return res.json(banner);
+        return res.status(200).json(banner);
     } catch (e) {
         console.log(e);
-        return res.status(501).json({success: false, message: "서버 오류"});
+        return res.status(501).send('배너 불러오기 오류');
     }
 }
 
@@ -236,10 +250,10 @@ const getCalendar = async (req, res, next) => {
             }
         );
 
-        return res.json(calendar);
+        return res.status(200).json(calendar);
     } catch (e) {
         console.log(e);
-        return res.status(501).json({success: false, message: "서버 오류"});
+        return res.status(501).send('캘린더 불러오기 오류');
     }
 }
 
@@ -282,16 +296,15 @@ const getElection = async (req, res, next) => {
 
         const results = await model.sequelize.query(query, { type: QueryTypes.SELECT });
 
-        return res.json(getType(results));
+        return res.status(200).json(getType(results));
 
     } catch (e) {
         console.log(e);
-        return res.status(501).json({success: false, message: "서버 오류"});
+        return res.status(501).send('선거정보 불러오기 오류');
     }
 }
 
 const getType = (data) => {
-
     return data.map(
         (column) => {
             return {'id': column['centralId'], 'name': column['categoryDetail'], 'numOfTeam': column['count'],

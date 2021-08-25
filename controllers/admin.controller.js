@@ -36,38 +36,48 @@ const getCategory = async (req,res,next) => {
         const college = [await getCollege()];
         const major = [await getMajor()];
         if (central || college) {
-            return res.json(central.concat(college).concat(major));
+            return res.status(200).json(central.concat(college).concat(major));
         } else {
-            return res.status(501).send('null');
+            return res.status(503).send('카테고리 정보 없음');
         }
     } catch(e) {
-        console.log(e)
-        return res.status(501).json({success: false, message: "카테고리 호출 서버 오류"});
+        if (e==='central err') {
+            return res.status(501).send('중앙자치기구 호출 오류');
+        }
+        else if (e==='college err') {
+            return res.status(501).send('단과대 호출 오류');
+        }
+        else if (e==='major err') {
+            return res.status(501).send('학과 호출 오류');
+        }
+        else {
+            return res.status(500).send('서버 오류');
+        }
     }
 }
 
-const getCentral = async(next) => {
+const getCentral = async() => {
     try {
         const central = await model.Central.findAll({order: Sequelize.col('id')});
         console.log(JSON.stringify(central));
         return renameKey(central, '중앙자치기구');
     } catch(e) {
         console.log(e);
-        next.error;
+        throw 'central err';
     }
 }
 
-const getCollege = async(next) => {
+const getCollege = async() => {
     try {
         const college = await model.College.findAll({order: Sequelize.col('id')});
         return renameKey(college, '단과대');
     } catch(e) {
         console.log(e);
-        next.error;
+        throw 'college err';
     }
 }
 
-const getMajor = async(next) => {
+const getMajor = async() => {
     try {
         let major = await model.College.findAll({
             attributes: ['organizationName'],
@@ -87,7 +97,7 @@ const getMajor = async(next) => {
         return major;
     } catch(e) {
         console.log(e)
-        next.error;
+        throw 'major err';
     }
 }
 
@@ -104,18 +114,29 @@ const registerCategory = async (req, res, next) => {
         } else {
             await getCollegeId(req.body.middle, req.body.bottom);
         }
-        return res.json({success: true});
+        return res.status(204).end();
     } catch(e) {
-        console.log(e);
-        return res.status(501).json({success: false, message: "카테고리 등록 오류"});
+        if (e==='no college info') {
+            return res.status(400).send("해당 단과대 정보를 찾을 수 없습니다.");
+        } else {
+            return res.status(501).send("카테고리 등록 실패");
+        }
     }
 }
 
 const getCollegeId = async (collegeName, majorName) => {
-    const college = await model.College.findOne({
-        where: {organizationName: collegeName}
-    })
-    await registerMajor(college.id, majorName)
+    try {
+        const college = await model.College.findOne({
+            where: {organizationName: collegeName}
+        })
+        await registerMajor(college.id, majorName)
+    } catch(e) {
+        if (e === 'register Major err') {
+            throw e
+        } else {
+            throw 'no college info';
+        }
+    }
 }
 
 const registerMajor = async(id, majorName) => {
@@ -125,46 +146,58 @@ const registerMajor = async(id, majorName) => {
             organizationName: majorName
         })
     } catch (e) {
-        console.log('registerMajor error');
+        console.log('register Major error');
+        throw 'register Major err';
     }
 }
 
 const deleteCentral = async(req, res, next) => {
     try {
-        await model.Central.destroy({where: {id: req.params.id}})
-        return res.json({"success": true})
+        const exCentral = await model.Central.findOne({where: {id: req.params.id}});
+        if (!exCentral) {
+            return res.status(400).send('존재하지 않는 정보입니다.');
+        }
+        await model.Central.destroy({where: {id: req.params.id}});
+        return res.status(204).end();
     } catch (e) {
         console.log(e);
-        return res.status(402).json({success: false, message: "삭제 오류: id가 존재하지 않음"});
+        return res.status(500).send("서버 오류");
     }
 }
 
 const deleteMajorCollege = async(req, res, next) => {
     try {
-        await model.Major.destroy({where: {collegeId: req.params.id}})
+        await model.Major.destroy({where: {collegeId: req.params.id}});
         await deleteCollege(req, res, next);
     } catch (e) {
-        return res.status(402).json({success: false, message: "삭제 오류: id가 존재하지 않음"});
+        return res.status(500).send("서버 오류");
     }
 }
 
 const deleteCollege = async(req, res, next) => {
     try {
-        await model.College.destroy({where: {id: req.params.id}})
-        return res.status(200).json({"success": true});
+        const exCollege = await model.College.findOne({where: {id: req.params.id}});
+        if (!exCollege) {
+            return res.status(400).send('존재하지 않는 정보입니다.');
+        }
+        await model.College.destroy({where: {id: req.params.id}});
+        return res.status(204).end();
     } catch (e) {
-        console.log(e);
-        return res.status(402).json({success: false, message: "삭제 오류: id가 존재하지 않음"});
+        throw e
     }
 }
 
 const deleteMajor = async(req, res, next) => {
     try {
-        await model.Major.destroy({where: {id: req.params.id}})
-        return res.json({"success": true})
+        const exMajor = await model.Major.findOne({where: {id: req.params.id}});
+        if (!exMajor) {
+            return res.status(400).send('존재하지 않는 정보입니다.');
+        }
+        await model.Major.destroy({where: {id: req.params.id}});
+        return res.status(204).end();
     } catch (e) {
         console.log(e);
-        return res.status(402).json({success: false, message: "삭제 오류: id가 존재하지 않음"});
+        return res.status(500).send("서버 오류");
     }
 }
 
@@ -175,23 +208,25 @@ const registerBanner = async(req, res, next) => {
 
         await model.Banner.create(bannerData);
 
-        return res.json({"success": true});
+        return res.status(204).end();
 
     } catch (e) {
         console.log(e);
-        return res.status(501).json({success: false, message: "배너 등록 오류"});
+        return res.status(501).send("배너 등록 오류");
     }
 }
 
 const deleteBanner = async(req, res, next) => {
     try {
-        await model.Banner.destroy({where: {id: req.params.id}})
-
-        return res.json({"success": true})
-
+        const exBanner = await model.Banner.findOne({where: {id: req.params.id}});
+        if (!exBanner) {
+            return res.status(400).send('존재하지 않는 정보입니다.');
+        }
+        await model.Banner.destroy({where: {id: req.params.id}});
+        return res.status(204).end();
     } catch (e) {
         console.log(e);
-        return res.status(402).json({success: false, message: "삭제 오류: id가 존재하지 않음"});
+        return res.status(500).send("서버 오류");
     }
 }
 
@@ -202,11 +237,11 @@ const updateBanner = async (req, res, next) => {
 
         await model.Banner.update(newBannerData, {where: {id: id}})
 
-        return res.json({"success":true})
+        return res.status(204).end();
 
     } catch (e) {
         console.log(e);
-        return res.status(501).json({success: false, message: "배너 수정 오류"});
+        return res.status(501).send("배너 수정 오류");
     }
 }
 
@@ -235,17 +270,17 @@ const registerCalendar = async(req, res) => {
 
             const url = req.file.location;
             if (url !== "") {
-                const oldCalendar = model.Calendar.findOne({where: {image:url}})
-                deleteCalendar(oldCalendar)
+                const oldCalendar = model.Calendar.findOne({where: {image:url}});
+                deleteCalendar(oldCalendar);
             }
             const calendarImg = req.file;
             model.Calendar.create({image: calendarImg.location});
-            res.json({'success': true});
+            res.status(204).end();
             }
         )
     } catch(e) {
         console.error(e)
-        return res.status(501).json({success: false, message: "캘린더 등록 오류"});
+        return res.status(501).send("캘린더 등록 오류");
     }
 }
 
@@ -257,12 +292,12 @@ const registerInfo = async(req, res) => {
             const infoImgs = req.files;
             infoImgs.forEach(img => model.ElectionInfo.create({image: img.location}))
             //res.json({'success': true});
-            res.json(infoImgs)
+            res.status(201).json(infoImgs);
             }
         )
     } catch(e) {
         console.error(e)
-        return res.status(501).json({success: false, message: "사진 등록 오류"});
+        return res.status(501).send("사진 등록 오류");
     }
 }
 
@@ -270,11 +305,11 @@ const getInfoImgList = async(req, res) => {
     try {
         const data = await model.ElectionInfo.findAll({order: [['id', 'ASC']]});
         console.log(data);
-        return res.json(data);
+        return res.status(200).json(data);
     }
     catch (e) {
         console.log(e);
-        return res.status(501).json({success: false, message: "사진 호출 오류"});
+        return res.status(501).send("사진 호출 오류");
     }
 }
 
@@ -334,10 +369,10 @@ const postCalendar = async(req, res, next) => {
         }
         const calendarImg = req.body;
         await model.Calendar.create({image: calendarImg.location});
-        return res.json({"imageUrl": calendarImg.location, "success": true});
+        return res.status(201).json({"imageUrl": calendarImg.location});
     } catch (e) {
         console.log(e);
-        return res.status(501).json({success: false, message: "캘린더 등록 오류"});
+        return res.status(501).send("캘린더 등록 오류");
     }
 }
 
@@ -370,11 +405,15 @@ const deleteCalendar = async(req, res, next) => {
     // })
 
     try {
+        const exCalendar = await model.Calendar.findOne({where: {id: req.params.id}});
+        if (!exCalendar) {
+            return res.status(400).send('존재하지 않는 정보입니다.');
+        }
         await model.Calendar.destroy({where: {id: req.params.id}})
-        return res.json({"success": true})
+        return res.status(204).end();
     } catch (e) {
         console.log(e);
-        return res.status(402).json({success: false, message: "삭제 오류: id가 존재하지 않음"});
+        return res.status(500).send("서버 오류");
     }
 
 }
@@ -404,9 +443,9 @@ const deleteInfoImg = async(req, res, next) => {
     //     }
     // })
 
-    await model.ElectionInfo.destroy({where: {id: req.params.id}})
+    await model.ElectionInfo.destroy({where: {id: req.params.id}});
 
-    return res.json({"success": true})
+    return res.status(204).end();
 }
 
 
@@ -457,11 +496,11 @@ const getCandidate = async(req, res, next) => {
 
         console.log(newCandidate);
 
-        return res.json(newCandidate);
+        return res.status(200).json(newCandidate);
     }
     catch (e) {
         console.log(e);
-        return res.status(501).json({success: false, message: "후보자 호출 오류"});
+        return res.status(501).send("후보자 호출 오류");
     }
 }
 
@@ -531,11 +570,11 @@ const registerCandidate = async(req, res, next) => {
 
         await model.Team.create(candidate, {include : [model.Runner, model.Promises]});
 
-        return res.json({"success": true});
+        return res.status(204).end();
     }
     catch (e) {
         console.log(e);
-        return res.status(501).json({success: false, message: "후보자 등록 오류"});
+        return res.status(501).send("후보자 등록 오류");
     }
 }
 
@@ -564,11 +603,11 @@ const updateCandidate = async(req, res, next) => {
             model.Promises.update(it, {where: {id: it.id}})
         })
 
-        return res.json({"success": true});
+        return res.status(204).end();
     }
     catch (e) {
         console.log(e);
-        return res.status(501).json({success: false, message: "후보자 수정 오류"});
+        return res.status(501).send("후보자 수정 오류");
     }
 }
 
@@ -578,11 +617,11 @@ const deleteCandidate = async(req, res, next) => {
         await model.Runner.destroy({where: {teamId: null}})
         await model.Promises.destroy({where: {teamId: null}})
 
-        return res.json({"success": true})
+        return res.status(204).end();
     }
     catch (e) {
         console.log(e);
-        return res.status(501).json({success: false, message: "후보자 삭제 오류"});
+        return res.status(501).send("후보자 삭제 오류");
     }
 }
 
